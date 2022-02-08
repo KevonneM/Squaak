@@ -126,3 +126,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login and logout redirects using django auth app.
+LOGIN_REDIRECT_URL = 'pages:home'
+LOGOUT_REDIRECT_URL = 'pages:home'
+
+# Added to tell Djando to use new custom user model insted of built-in User model.
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Added config for using bootstrap4 template pack with crispy forms.
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
