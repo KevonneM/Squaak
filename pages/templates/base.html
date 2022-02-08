@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"  type="text/css" href="{% static 'pages/css/style.css' %}">
+    {% block title %}
+
+    <title>Squaak</title>
+
+    {% endblock title %}
+
+
+
+</head>
+<body>
+    <header>
+
+    <a href="{% url 'pages:home' %}"><h1 class="logo">Squaak</h1></a>
+
+        <div class="container">
+
+            <nav>
+                <ul>
+                    <li><a href="{% url 'pages:home' %}">Home</a></li>
+                    <li><a href="#">Carrier pigeon</a></li>
+                    <li><a href="#">Flock</a></li>
+                    <li><a href="#">Video Chat</a></li>
+                    <li><a href="#">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+        <div>
+            {% block page_header %}{% endblock page_header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+</body>
+</html>
