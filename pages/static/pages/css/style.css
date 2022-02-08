@@ -124,9 +124,11 @@ header::after{
 .logo {
     color: white;
     float: left;
-    padding-top: 19px;
+    margin-top: 18px;
     margin-left: 70px;
-    font-size: 20px;
+    font-size: 24px;
+    border-right: 2px solid #111;
+    padding-right: 20px;
 }
 
 nav {
