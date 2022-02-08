@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     # My apps.
     'users',
     'pages',
+    # 3rd party apps.
+    'crispy_forms',
+    'bootstrap4',
     # Base apps.
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,3 +128,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login and logout redirects using django auth app.
+LOGIN_REDIRECT_URL = 'pages:home'
+LOGOUT_REDIRECT_URL = 'pages:home'
+
+# Added to tell Djando to use new custom user model insted of built-in User model.
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Added config for using bootstrap4 template pack with crispy forms.
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
