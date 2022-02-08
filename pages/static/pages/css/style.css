@@ -113,6 +113,7 @@ input, select {
 
 header {
     background-color: #B048FF;
+    line-height: 25px;
 }
 
 header::after{
@@ -124,9 +125,11 @@ header::after{
 .logo {
     color: white;
     float: left;
-    padding-top: 19px;
+    margin-top: 18px;
     margin-left: 70px;
-    font-size: 20px;
+    font-size: 24px;
+    border-right: 2px solid #111;
+    padding-right: 20px;
 }
 
 nav {
@@ -168,7 +171,6 @@ nav a::before{
     position: absolute;
     top: 0;
     width: 0%;
-
     transition: all ease-in-out 250ms;
 }
 
@@ -176,6 +178,19 @@ nav a:hover::before {
     width: 100%;
 }
 
+nav ul .login{
+    border: 2px solid #111;
+    width: 100px;
+    line-height: 0px;
+    text-align: center;
+}
+
+nav ul .signup{
+    border: 2px solid #111;
+    width: 100px;
+    line-height: 0px;
+    text-align: center;  
+}
 
 
 
