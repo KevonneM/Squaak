@@ -27,10 +27,12 @@
             <nav>
                 <ul>
                     <li><a href="{% url 'pages:home' %}">Home</a></li>
-                    <li><a href="#">Carrier pigeon</a></li>
-                    <li><a href="#">Flock</a></li>
-                    <li><a href="#">Video Chat</a></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="{% url 'pages:message' %}">Carrier pigeon</a></li>
+                    <li><a href="{% url 'pages:friends' %}">Flock</a></li>
+                    <li><a href="{% url 'pages:videochat' %}">Video Chat</a></li>
+                    <li><a href="{% url 'pages:profile' %}">Profile</a></li>
+                    <li><a href="{% url 'users:login' %}">Login</a></li>
+                    <li><a href="{% url 'users:signup' %}">Signup</a></li>
                 </ul>
             </nav>
         </div>
