@@ -113,6 +113,7 @@ input, select {
 
 header {
     background-color: #B048FF;
+    line-height: 25px;
 }
 
 header::after{
@@ -170,7 +171,6 @@ nav a::before{
     position: absolute;
     top: 0;
     width: 0%;
-
     transition: all ease-in-out 250ms;
 }
 
@@ -178,6 +178,19 @@ nav a:hover::before {
     width: 100%;
 }
 
+nav ul .login{
+    border: 2px solid #111;
+    width: 100px;
+    line-height: 0px;
+    text-align: center;
+}
+
+nav ul .signup{
+    border: 2px solid #111;
+    width: 100px;
+    line-height: 0px;
+    text-align: center;  
+}
 
 
 
