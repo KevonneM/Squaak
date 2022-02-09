@@ -1,7 +1,6 @@
 from django.urls import path, include
-from .views import SignUpView
+from .views import SignUpView, CustomPasswordChangeView
 from django.contrib.auth import views as auth_views
-from . import views
 
 app_name = 'users'
 
@@ -17,4 +16,6 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
     
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(),name="password_reset_comlete"),
+    #password change
+    path('password_change/', CustomPasswordChangeView.as_view()),
 ]
