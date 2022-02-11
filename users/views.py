@@ -13,7 +13,7 @@ class SignUpView(CreateView):
     # Logic for the signup form.
     # CustomUserCreation form will tell django to use this form and redirect to login page once signed up.
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('pages:home')
     template_name = 'signup.html'
 
 class CustomPasswordChangeView(PasswordChangeView):
