@@ -1,4 +1,8 @@
 {% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +21,10 @@
 
 </head>
 <body>
+
+
     <header>
+
 
     <a href="{% url 'pages:home' %}"><h1 class="logo">Squaak</h1></a>
 
@@ -29,17 +36,32 @@
                     <li><a href="{% url 'pages:message' %}">Carrier pigeon</a></li>
                     <li><a href="{% url 'pages:friends' %}">Flock</a></li>
                     <li><a href="{% url 'pages:videochat' %}">Video Chat</a></li>
-                    <li><a href="{% url 'pages:profile' %}">Profile</a></li>
-                    
+
                 </ul>
-                <ul class="right-nav">
+                {% if user.is_authenticated %}    
+                    <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu
+                    </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{% url 'pages:profile' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'users:change_password' %}">Change Password</a>
+                            <a class="dropdown-item" href="{% url 'pages:home' %}">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    
+                    <ul class="right-nav">
                     <li class="User-buttons" ><a id="login" href="{% url 'users:login' %}">Login</a><li>
                     <li class="User-buttons" ><a id="signup" href="{% url 'users:signup' %}">Signup</a></li>
-                </ul>
+                    </ul>
+                {% endif %}
+
             </nav>
         </div>
     </header>
 
+                    
         <div>
             {% block page_header %}{% endblock page_header %}
         </div>
