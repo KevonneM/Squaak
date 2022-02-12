@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My apps.
     'users',
+    'friend',
     'pages',
     # 3rd party apps.
     'crispy_forms',
