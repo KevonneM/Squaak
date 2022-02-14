@@ -200,3 +200,6 @@ nav ul li #signup{
     text-align: center;
 }
 
+.dropdown{
+    float: right;
+}
