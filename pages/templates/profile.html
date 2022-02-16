@@ -1,1 +1,13 @@
 {% extends "base.html" %}
+
+{% block content %}
+
+<div class="card" style="width: 18rem;">
+  <img id="profile-pic"class="card-img-top rounded-circle img-fluid" src="{{ user.profile.image.url }}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ user.username }}</h5>
+    <p class="card-text">{{ user.email }}</p>
+  </div>
+</div>
+
+{% endblock content %}
