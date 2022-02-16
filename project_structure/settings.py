@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'pages:home'
 LOGOUT_REDIRECT_URL = 'pages:home'
 
-# Added to tell Djando to use new custom user model insted of built-in User model.
+# Added to tell Django to use new custom user model insted of built-in User model.
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Added config for using bootstrap4 template pack with crispy forms.
