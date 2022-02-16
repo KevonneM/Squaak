@@ -32,14 +32,14 @@
 
             <nav>
                 <ul class="left-nav">
-                    <li><a href="{% url 'pages:home' %}">Home</a></li>
-                    <li><a href="{% url 'pages:message' %}">Carrier pigeon</a></li>
-                    <li><a href="{% url 'pages:friends' %}">Flock</a></li>
-                    <li><a href="{% url 'pages:videochat' %}">Video Chat</a></li>
+                    <li><a class="left" href="{% url 'pages:home' %}">Home</a></li>
+                    <li><a class="left" href="{% url 'pages:message' %}">Carrier pigeon</a></li>
+                    <li><a class="left" href="{% url 'pages:friends' %}">Flock</a></li>
+                    <li><a class="left" href="{% url 'pages:videochat' %}">Video Chat</a></li>
 
                 </ul>
                 {% if user.is_authenticated %}
-                    <h3>Hello {{ user.username }}</h3>    
+                    <h3 id="user-greeting">Hello {{ user.username }}</h3>    
                     <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Menu
