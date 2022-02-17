@@ -185,6 +185,7 @@ nav .left:hover::before {
 }
 
 nav ul li #login{
+    color:white;
     padding: 15px;
     border: 1px solid #364a4c;
     width: 100px;
@@ -193,6 +194,7 @@ nav ul li #login{
 }
 
 nav ul li #signup{
+    color:white;
     padding: 15px;
     border: 1px solid #364a4c;
     width: 100px;
