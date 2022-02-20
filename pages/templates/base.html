@@ -31,13 +31,22 @@
         <div class="container">
 
             <nav>
+            {% if user.is_authenticated %}
                 <ul class="left-nav">
                     <li><a class="left" href="{% url 'pages:home' %}">Home</a></li>
                     <li><a class="left" href="{% url 'pages:message' %}">Carrier pigeon</a></li>
                     <li><a class="left" href="{% url 'pages:friends' %}">Flock</a></li>
                     <li><a class="left" href="{% url 'pages:videochat' %}">Video Chat</a></li>
-
                 </ul>
+            {% else %}
+                <ul class="left-nav">
+                    <li><a class="left" href="{% url 'pages:home' %}">Home</a></li>
+                    <li><a class="left" href="{% url 'users:login' %}">Carrier pigeon</a></li>
+                    <li><a class="left" href="{% url 'users:login' %}">Flock</a></li>
+                    <li><a class="left" href="{% url 'users:login' %}">Video Chat</a></li>
+                </ul>   
+            {% endif %}
+                
                 {% if user.is_authenticated %}
                     <h3 id="user-greeting">Hello {{ user.username }}</h3>    
                     <div class="dropdown">
