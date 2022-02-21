@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from PIL import Image
+
 # User model inheriting from Django's AbstractUser.
 class CustomUser(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
@@ -15,6 +17,16 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)
+
+        if img.height > 400 or img.width > 400:
+            output_size = (400, 400)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 # User profile is created upon user signup.
 @receiver(post_save, sender=CustomUser)
