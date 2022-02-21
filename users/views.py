@@ -2,7 +2,7 @@ from django.http import request
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileUpdateForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 
