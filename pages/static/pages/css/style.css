@@ -127,7 +127,7 @@ header::after{
     float: left;
     margin-top: 18px;
     margin-left: 70px;
-    font-size: 24px;
+    font-size: 35px;
     border-right: 2px solid #111;
     padding-right: 20px;
 }
@@ -154,7 +154,7 @@ nav li {
     margin-left: 20px;
     padding-top: 19px;
     padding-bottom: 20px;
-
+    line-height: 40px;
     position: relative;
 }
 
@@ -202,19 +202,24 @@ nav ul li #signup{
     text-align: center;
 }
 #user-greeting{
-    height: 30px;
-    padding-bottom: -5px;
-    padding-right: 10px;
+    width: 8%;
+    float: right;
+    transform: translateY(-25px);
+    margin-top: 0px;
+    margin-bottom: 5px;
+    height: 10px;
+    padding-bottom: 0px;
+    padding-right: 0px;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
 }
 .dropdown{
+    transform: translateX(85px);
     width: 10%;
     float: right;
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 #dropdownMenuButton{
@@ -224,7 +229,11 @@ nav ul li #signup{
 .dropdown-menu .dropdown-item{
     transition-property: none;
 }
-
+/* search bar CSS */
+#search-bar{
+    width: 28%;
+    transform: translateX(300px) translateY(20px);
+}
 /* Profile CSS */
 
 div .container{
