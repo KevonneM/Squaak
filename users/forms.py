@@ -32,7 +32,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email',)
+        fields = ('username',)
 
 # Form used to update profile info.
 class ProfileUpdateForm(UserChangeForm):

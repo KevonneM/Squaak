@@ -49,6 +49,12 @@
             {% endif %}
                 
                 {% if user.is_authenticated %}
+                    
+                    <form id="search-bar" class="form-inline" action="">
+                      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                      <button class="btn btn-info" type="submit">Search</button>
+                    </form>
+                    
                     <h3 id="user-greeting">Hello {{ user.username }}</h3>    
                     <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
