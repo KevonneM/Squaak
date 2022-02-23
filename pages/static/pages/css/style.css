@@ -234,6 +234,11 @@ nav ul li #signup{
     width: 28%;
     transform: translateX(300px) translateY(20px);
 }
+/* Profile Form */
+#profile-form{
+    transform: translateX();
+    margin-left: 25px;
+}
 /* Profile CSS */
 
 div .container{
