@@ -50,8 +50,8 @@
                 
                 {% if user.is_authenticated %}
                     
-                    <form id="search-bar" class="form-inline" action="">
-                      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <form id="search-bar" class="form-inline" action="{% url 'pages:search' %}" method="get">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="user_name">
                       <button class="btn btn-info" type="submit">Search</button>
                     </form>
                     

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from django.views.generic import TemplateView
-from users.models import Profile
+from django.views.generic import TemplateView, ListView
+from users.models import CustomUser, Profile
 from users.forms import CustomUserChangeForm, ProfileUpdateForm
 
 # Create your views here.
@@ -42,3 +42,13 @@ class MessagePageView(TemplateView):
 # View for the Video chat page.
 class VideoChatView(TemplateView):
     template_name = 'videochat.html'
+
+# View for search page.
+class SearchView(ListView):
+    model = CustomUser
+    template_name = 'search.html'
+    
+    def get_queryset(self):
+        query = self.request.GET.get('user_name')
+        object_list = CustomUser.objects.filter(username__icontains=query)
+        return object_list

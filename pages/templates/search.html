@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for result in object_list %}
+   {{ result.username }}
+{% empty %}
+   <h1>No Results</h1>
+{% endfor %}
+
+{% endblock content %}
