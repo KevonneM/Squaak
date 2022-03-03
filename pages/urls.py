@@ -1,6 +1,6 @@
 from django.urls import path
 
-from pages.views import HomePageView, FriendsPageView, MessagePageView, VideoChatView
+from pages.views import HomePageView, FriendsPageView, MessagePageView, VideoChatView, SearchView
 from . import views
 
 app_name = 'pages'
@@ -11,4 +11,5 @@ urlpatterns = [
     path('profile/friends/', FriendsPageView.as_view(), name='friends'),
     path('profile/message/', MessagePageView.as_view(), name='message'),
     path('profile/videochat/', VideoChatView.as_view(), name='videochat'),
+    path('user_search/', SearchView.as_view(), name='search')
 ]
