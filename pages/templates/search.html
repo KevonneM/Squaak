@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for result in object_list %}
-   {{ result.username }}
+   <a href="{% url 'friend:profile_view' result.pk %}">{{ result.username }}</a>
 {% empty %}
    <h1>No Results</h1>
 {% endfor %}

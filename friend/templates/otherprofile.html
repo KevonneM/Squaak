@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+<div class="container">
+  <div class="card">
+    <img id="profile-pic"class="card-img rounded-circle img-fluid" src="{{ user.profile.image.url }}">
+    <div id="profile-text"class="card-body">
+      <h5 class="card-title">{{ user.username }}</h5>
+      <p class="card-text">{{ user.email }}</p>
+      <p class="card-text">{{ user.profile.bio }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

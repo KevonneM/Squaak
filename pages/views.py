@@ -11,7 +11,7 @@ class HomePageView(TemplateView):
     template_name = 'home.html'
 
 # View for the Profile page.
-def profilepageview(request, pk):
+def myprofilepageview(request, pk):
     if request.method == 'POST':
         u_form = CustomUserChangeForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
