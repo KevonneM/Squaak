@@ -61,7 +61,7 @@
                         Menu
                     </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{% url 'pages:profile' user.pk %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'pages:my_profile' user.pk %}">Profile</a>
                             <a class="dropdown-item" href="{% url 'users:change_password' %}">Change Password</a>
                             <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
                         </div>
