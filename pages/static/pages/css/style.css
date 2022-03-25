@@ -280,3 +280,29 @@ div .card{
     line-height: 50px;
     font-size: 24px;
 }
+
+/* ------ room styling ------ */
+
+#video-streams{
+    display: flex;
+    flex-wrap: wrap;
+    height: 85vh;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.video-container{
+    flex-basis: 500px;
+    flex-grow: 1;
+    max-height: 100%;
+    min-height: 350px;
+    border: 1px solid rgb(75, 95, 172, 1);
+    border-radius: 5px;
+    margin: 2px;
+    background-color: rgba(194, 202, 219, 1);
+}
+
+.video-player{
+    height: 100%;
+    width: 100%;
+}
