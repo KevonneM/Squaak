@@ -31,10 +31,6 @@ def myprofilepageview(request, pk):
     }
     return render(request, 'profile.html', context)
 
-# View for the Friends page.
-class FriendsPageView(TemplateView):
-    template_name = 'friends.html'
-
 # View for the Messaging page.
 class MessagePageView(TemplateView):
     template_name = 'message.html'

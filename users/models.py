@@ -16,6 +16,7 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     slug = AutoSlugField(populate_from='user', null=True)
     bio = models.TextField(max_length=250, default='Bio')
+    friends = models.ManyToManyField("Profile", blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
