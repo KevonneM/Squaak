@@ -1,1 +1,32 @@
 {% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <h1>Friends</h1>
+    {% for friend in friends %}
+    <h1>{{friend.username}}
+        <a href="{% url 'friend:profile_view' friend.pk %}">View Profile</a>
+    </h1>
+    {% endfor %}
+</div>
+
+<div>
+    <h1>Friend Requests</h1>
+    {% for request in rec_friend_requests %}
+
+    <h1>From: {{request.sender}}
+        <a href="{% url 'friend:accept-friend-request' request.pk %}">Accept Friend Request</a>
+    </h1>
+    {% endfor %}
+</div>
+
+<div>
+    <h1>Requests Sent</h1>
+    {% for sent in sent_friend_requests %}
+    <h1>Sent To: {{sent.receiver}}
+        <a href="#">set up cancel view function</a></h1>
+    {% endfor %}
+</div>
+
+{% endblock content %}
