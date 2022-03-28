@@ -15,11 +15,17 @@ def otherprofilepageview(request, pk):
 
 # View for the users Friends list.
 def friends_list(request):
-    
-    p = request.user.profile
+
+    p = request.user
     friends = p.friends.all()
+
+    sent_friend_requests = FriendRequest.objects.filter(sender=request.user)
+    rec_friend_requests = FriendRequest.objects.filter(receiver=request.user)
+    
     context = {
-        'friends': friends
+        'friends': friends,
+        'sent_friend_requests': sent_friend_requests,
+        'rec_friend_requests': rec_friend_requests
     }
     return render(request, "friends.html", context)
 
