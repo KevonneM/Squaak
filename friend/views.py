@@ -53,6 +53,18 @@ def accept_friend_request(request, pk):
         friend_request.receiver.friends.add(friend_request.sender)
         friend_request.sender.friends.add(friend_request.receiver)
         friend_request.delete()
-        return HttpResponse('Friend Request accepted!')
+        return HttpResponse('Friend Request Accepted!')
     else:
-        return HttpResponse('Friend request not accepted.')
+        decline_friend_request()
+
+@login_required
+def decline_friend_request(request, pk):
+
+    friend_request = FriendRequest.objects.get(pk=pk)
+
+    if friend_request.receiver == request.user:
+        friend_request.delete()
+        return HttpResponse('Friend Request Declined.')
+    else:
+        accept_friend_request()
+
