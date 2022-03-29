@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404, render
+from webbrowser import get
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from users.models import Profile, CustomUser
@@ -43,6 +44,18 @@ def send_friend_request(request, pk):
     else:
         return HttpResponse('Friend request already sent.')
 
+# Function for cancelling a sent friend request.
+def cancel_friend_request(request, pk):
+
+    sender = request.user
+    receiver = CustomUser.objects.get(pk=pk)
+
+    friend_request = FriendRequest.objects.get(sender=sender, receiver=receiver)
+
+    if friend_request.sender == request.user:
+        friend_request.delete()
+        return redirect('friend:friends')
+
 # Function for accepting a friend request.
 @login_required
 def accept_friend_request(request, pk):
@@ -53,10 +66,11 @@ def accept_friend_request(request, pk):
         friend_request.receiver.friends.add(friend_request.sender)
         friend_request.sender.friends.add(friend_request.receiver)
         friend_request.delete()
-        return HttpResponse('Friend Request Accepted!')
+        return redirect('friend:friends')
     else:
         decline_friend_request()
 
+# Function for declining a friend request.
 @login_required
 def decline_friend_request(request, pk):
 
@@ -64,7 +78,17 @@ def decline_friend_request(request, pk):
 
     if friend_request.receiver == request.user:
         friend_request.delete()
-        return HttpResponse('Friend Request Declined.')
+        return redirect('friend:friends')
     else:
         accept_friend_request()
 
+@login_required
+def delete_friend(request,pk):
+
+    user_account = request.user
+    friend_account = CustomUser.objects.get(pk=pk)
+
+    user_account.friends.remove(friend_account)
+    friend_account.friends.remove(user_account)
+
+    return redirect('friend:friends')

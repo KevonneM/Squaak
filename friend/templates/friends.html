@@ -7,6 +7,7 @@
     {% for friend in friends %}
     <h1>{{friend.username}}
         <a href="{% url 'friend:profile_view' friend.pk %}">View Profile</a>
+        <a href="{% url 'friend:delete-friend' friend.pk %}">Remove Friend</a>
     </h1>
     {% endfor %}
 </div>
@@ -26,7 +27,7 @@
     <h1>Requests Sent</h1>
     {% for sent in sent_friend_requests %}
     <h1>Sent To: {{sent.receiver}}
-        <a href="#">set up cancel view function</a></h1>
+        <a href="{% url 'friend:cancel-friend-request' sent.receiver.pk %}">Cancel Friend Request.</a></h1>
     {% endfor %}
 </div>
 
