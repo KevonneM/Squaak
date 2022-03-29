@@ -17,6 +17,7 @@
 
     <h1>From: {{request.sender}}
         <a href="{% url 'friend:accept-friend-request' request.pk %}">Accept Friend Request</a>
+        <a href="{% url 'friend:decline-friend-request' request.pk %}">Decline Friend Request</a>
     </h1>
     {% endfor %}
 </div>
