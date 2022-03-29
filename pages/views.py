@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView
+from friend.models import FriendRequest
 from users.models import CustomUser, Profile
 from users.forms import CustomUserChangeForm, ProfileUpdateForm
 
@@ -45,6 +46,7 @@ class SearchView(ListView):
     template_name = 'search.html'
     
     def get_queryset(self):
+        
         query = self.request.GET.get('user_name')
         object_list = CustomUser.objects.filter(username__icontains=query)
         return object_list
