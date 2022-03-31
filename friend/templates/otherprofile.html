@@ -14,6 +14,18 @@
   </div>
 </div>
 
+{% if user not in current_user.friends.all and user != current_user %}
+<div>
+  <a href="{% url 'friend:send-friend-request' user.pk %}">Send Friend Request</a>
+</div>
+ {% endif %}
+
+ {% if sent_friend_request %}
+<div>
+  <a href="{% url 'friend:cancel-friend-request' user.pk %}">Cancel Friend Request</a>
+</div>
+{% endif %}
+
 <style>
   #user-greeting{
     display: none;

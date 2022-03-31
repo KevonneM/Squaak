@@ -7,10 +7,16 @@
    <h1>{{ result.username }}
       <a href="{% url 'friend:profile_view' result.pk %}">View Profile</a>
    </h1>
-{% if result.pk not in request.user.friends.all and result != request.user %}
-   <a href="{% url 'friend:send-friend-request' result.pk %}">Send Friend Request</a>
+
+{% if result.username == request.user.username %}
+   <h1>Current User</h1>
 {% endif %}
-</div>
+
+{% if result not in request.user.friends.all and result.username != request.user.username %}
+   <h1>Not Friends</h1>
+{% else %}
+   <h1>Friend</h1>
+{% endif %}
 
 {% endfor %}
 
