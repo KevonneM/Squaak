@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from users.models import Profile, CustomUser
 from .models import FriendRequest
+from django.contrib import messages
 
 # Create your views here.
 
@@ -11,8 +12,16 @@ from .models import FriendRequest
 def otherprofilepageview(request, pk):
     
     user = get_object_or_404(CustomUser, pk=pk)
+    current_user = request.user
+    sent_friend_request = FriendRequest.objects.all()
 
-    return render(request, 'otherprofile.html', {'user': user})
+    context = {
+        'user': user,
+        'current_user': current_user,
+        'sent_friend_request': sent_friend_request
+    }
+
+    return render(request, 'otherprofile.html', context)
 
 # View for the users Friends list.
 def friends_list(request):
@@ -40,9 +49,9 @@ def send_friend_request(request, pk):
     friend_request, created = FriendRequest.objects.get_or_create(sender=sender, receiver=receiver)
 
     if created:
-        return HttpResponse('Friend request sent!')
+        return redirect('friend:profile_view', pk=pk)
     else:
-        return HttpResponse('Friend request already sent.')
+        return redirect('friend:profile_view', pk=pk)
 
 # Function for cancelling a sent friend request.
 def cancel_friend_request(request, pk):
@@ -54,7 +63,8 @@ def cancel_friend_request(request, pk):
 
     if friend_request.sender == request.user:
         friend_request.delete()
-        return redirect('friend:friends')
+        messages.success(request, 'Friend Request Canceled.')
+        return redirect('friend:profile_view', pk=pk)
 
 # Function for accepting a friend request.
 @login_required

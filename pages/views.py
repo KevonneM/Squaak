@@ -49,4 +49,5 @@ class SearchView(ListView):
         
         query = self.request.GET.get('user_name')
         object_list = CustomUser.objects.filter(username__icontains=query)
+
         return object_list
