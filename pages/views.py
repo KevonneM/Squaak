@@ -36,10 +36,6 @@ def myprofilepageview(request, pk):
 class MessagePageView(TemplateView):
     template_name = 'message.html'
 
-# View for the Video chat page.
-class VideoChatView(TemplateView):
-    template_name = 'videochat.html'
-
 # View for search page.
 class SearchView(ListView):
     model = CustomUser

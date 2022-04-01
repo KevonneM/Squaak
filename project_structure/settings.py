@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users',
     'friend',
     'pages',
+    'videochat',
     # 3rd party apps.
     'crispy_forms',
     'bootstrap4',
