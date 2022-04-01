@@ -7,7 +7,8 @@ name = "pypi"
 Django = "*"
 django-crispy-forms = "*"
 django-bootstrap4 = "*"
-pillow = "*"
+Pillow = "*"
+django-autoslug = "*"
 
 [dev-packages]
 

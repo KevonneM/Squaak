@@ -3,9 +3,21 @@
 {% block content %}
 
 {% for result in object_list %}
-   {{ result.username }}
-{% empty %}
-   <h1>No Results</h1>
+<div>
+   <h1>{{ result.username }}
+      <a href="{% url 'friend:profile_view' result.pk %}">View Profile</a>
+   </h1>
+
+{% if result.username == request.user.username %}
+   <h1>Current User</h1>
+{% endif %}
+
+{% if result not in request.user.friends.all and result.username != request.user.username %}
+   <h1>Not Friends</h1>
+{% else %}
+   <h1>Friend</h1>
+{% endif %}
+
 {% endfor %}
 
 {% endblock content %}

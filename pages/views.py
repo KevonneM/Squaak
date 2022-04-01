@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView
+from friend.models import FriendRequest
 from users.models import CustomUser, Profile
 from users.forms import CustomUserChangeForm, ProfileUpdateForm
 
@@ -11,7 +12,7 @@ class HomePageView(TemplateView):
     template_name = 'home.html'
 
 # View for the Profile page.
-def profilepageview(request, pk):
+def myprofilepageview(request, pk):
     if request.method == 'POST':
         u_form = CustomUserChangeForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -31,10 +32,6 @@ def profilepageview(request, pk):
     }
     return render(request, 'profile.html', context)
 
-# View for the Friends page.
-class FriendsPageView(TemplateView):
-    template_name = 'friends.html'
-
 # View for the Messaging page.
 class MessagePageView(TemplateView):
     template_name = 'message.html'
@@ -45,6 +42,8 @@ class SearchView(ListView):
     template_name = 'search.html'
     
     def get_queryset(self):
+        
         query = self.request.GET.get('user_name')
         object_list = CustomUser.objects.filter(username__icontains=query)
+
         return object_list
