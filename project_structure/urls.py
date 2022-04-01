@@ -24,7 +24,8 @@ urlpatterns = [
     # Urls for our apps.
     path('', include('users.urls')),
     path('', include('pages.urls')),
-    path('', include('friend.urls'))
+    path('', include('friend.urls')),
+    path('', include('videochat.urls'))
 ]
 
 # only adds if in debug.
