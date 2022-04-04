@@ -1,6 +1,6 @@
 const APP_ID = 'e393edf6a2064a009f02a0dbd24284c5'
-const CHANNEL = 'hello'
-const TOKEN = '006e393edf6a2064a009f02a0dbd24284c5IACjKwgSUlkmgVe6Mv4GLA/drshjhtrozd14sAl/xXCpp4amEDYAAAAAEAAg4mLW3tM+YgEAAQDe0z5i'
+const CHANNEL = 'users'
+const TOKEN = '006e393edf6a2064a009f02a0dbd24284c5IADh6YUCSH5RIThnL0aYOcXr5ZxLaMz62laTMiWntIYVX+mlgxQAAAAAEABg4SwUzAJMYgEAAQDMAkxi'
 let UID;
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -9,6 +9,9 @@ let localTracks =  []
 let remoteUsers = {}
 
 let joinAndDisplayLocalStream = async () => {
+    client.on('user-published', handleUserJoined)
+    client.on('user-left', handleUserLeft)
+    
     UID = await client.join(APP_ID, CHANNEL, TOKEN, null)
 
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
@@ -24,4 +27,31 @@ let joinAndDisplayLocalStream = async () => {
     await client.publish([localTracks[0], localTracks[1]])
 }
 
+let handleUserJoined = async (user, meiaType) => {
+    remoteUsers[user.uid] = user
+    await client.subscribe(user, mediaType)
+
+    if(mediaType === 'video'){
+        let player = document.getElementById(`user-container-${user.uid}`)
+        if (player != null){
+            player.remove()
+        }
+
+        player = `<div class="video-container" id="user-container-${user.uid}}">
+                <div class="username-wrapper"><span class="user-name">My name</span></div>
+                <div class="video-player" id="user-${user.uid}"></div>
+            </div>`
+        document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
+        user.videoTrack.play(`user-${user.uid}`)
+    }
+
+    if(mediaType === 'audio'){
+        user.audioTrack.play()
+    }
+    let handleUserLeft = async (user) => {
+        delete remoteUsers[user,uid]
+        document.getElementById(`user-container-${user.uid}`).remove()
+    }
+
+}
 joinAndDisplayLocalStream()
