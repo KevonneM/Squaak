@@ -27,7 +27,7 @@ let joinAndDisplayLocalStream = async () => {
     await client.publish([localTracks[0], localTracks[1]])
 }
 
-let handleUserJoined = async (user, meiaType) => {
+let handleUserJoined = async (user, mediaType) => {
     remoteUsers[user.uid] = user
     await client.subscribe(user, mediaType)
 
@@ -48,10 +48,10 @@ let handleUserJoined = async (user, meiaType) => {
     if(mediaType === 'audio'){
         user.audioTrack.play()
     }
-    let handleUserLeft = async (user) => {
+}
+
+let handleUserLeft = async (user) => {
         delete remoteUsers[user,uid]
         document.getElementById(`user-container-${user.uid}`).remove()
     }
-
-}
 joinAndDisplayLocalStream()
