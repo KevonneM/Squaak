@@ -283,6 +283,10 @@ div .card{
 
 /* ------ room styling ------ */
 
+:root{
+    --shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06):
+}
+
 #video-streams{
     display: flex;
     flex-wrap: wrap;
@@ -305,4 +309,29 @@ div .card{
 .video-player{
     height: 100%;
     width: 100%;
+}
+
+/* ----- rooom styling controls ------ */
+
+#controls-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    column-gap: 1em;
+    position: fixed;
+    bottom: 20px;
+}
+
+.control-icon{
+    height: 20px;
+    width: 20px;
+    box-shadow: var(--shadow);
+    background-color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#leave-btn{
+    background-color: rgb(255, 80, 80, 1);
 }
