@@ -20,7 +20,7 @@ def myprofilepageview(request, pk):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('pages:profile', pk)
+            return redirect('pages:my_profile', pk)
 
     else:
         u_form = CustomUserChangeForm(instance=request.user)
