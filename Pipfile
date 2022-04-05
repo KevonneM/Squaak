@@ -9,6 +9,7 @@ django-crispy-forms = "*"
 django-bootstrap4 = "*"
 Pillow = "*"
 django-autoslug = "*"
+channels = "*"
 
 [dev-packages]
 
