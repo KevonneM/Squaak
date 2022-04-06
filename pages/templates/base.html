@@ -35,7 +35,7 @@
             {% if user.is_authenticated %}
                 <ul class="left-nav">
                     <li><a class="left" href="{% url 'pages:home' %}">Home</a></li>
-                    <li><a class="left" href="{% url 'pages:message' %}">Carrier pigeon</a></li>
+                    <li><a class="left" href="{% url 'messaging:messenger' %}">Carrier pigeon</a></li>
                     <li><a class="left" href="{% url 'friend:friends' %}">Flock</a></li>
                     <li><a class="left" href="{% url 'videochat:lobby' %}">Video Chat</a></li>
                 </ul>
