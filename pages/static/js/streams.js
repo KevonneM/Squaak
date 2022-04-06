@@ -79,7 +79,7 @@ let toggleCamera = async () => {
 
 let toggleMic = async () => {
     if(localTracks[0].muted){
-        await localTracks[1].setMuted(false)
+        await localTracks[0].setMuted(false)
         e.target.style.backgroundColor = '#fff'
     }else{
         await localTracks[0].setMuted(true)

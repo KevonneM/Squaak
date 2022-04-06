@@ -323,8 +323,8 @@ div .card{
 }
 
 .control-icon{
-    height: 20px;
-    width: 20px;
+    height: 50px;
+    width: 50px;
     box-shadow: var(--shadow);
     background-color: #fff;
     cursor: pointer;
@@ -334,4 +334,8 @@ div .card{
 
 #leave-btn{
     background-color: rgb(255, 80, 80, 1);
+}
+
+#mic-btn{
+    background-color: #B048FF;
 }
