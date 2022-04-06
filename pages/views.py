@@ -32,10 +32,6 @@ def myprofilepageview(request, pk):
     }
     return render(request, 'profile.html', context)
 
-# View for the Messaging page.
-class MessagePageView(TemplateView):
-    template_name = 'message.html'
-
 # View for search page.
 class SearchView(ListView):
     model = CustomUser
