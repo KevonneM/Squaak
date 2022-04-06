@@ -36,9 +36,11 @@ INSTALLED_APPS = [
     'friend',
     'pages',
     'videochat',
+    'messaging',
     # 3rd party apps.
     'crispy_forms',
     'bootstrap4',
+    'channels',
     # Base apps.
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,6 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project_structure.wsgi.application'
+ASGI_APPLICATION = 'project_structure.asgi.application'
 
 
 # Database
