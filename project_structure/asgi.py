@@ -11,11 +11,19 @@ import os
 
 import django
 from channels.http import AsgiHandler
-from channels.routing import ProtocolTypeRouter
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
+
+import messaging.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_structure.settings')
 django.setup()
 
 application = ProtocolTypeRouter({
     "http": AsgiHandler(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(
+            messaging.routing.websocket_urlpatterns
+        )
+    )
 })
