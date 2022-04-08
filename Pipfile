@@ -10,6 +10,7 @@ django-bootstrap4 = "*"
 Pillow = "*"
 django-autoslug = "*"
 channels = "*"
+django = "*"
 
 [dev-packages]
 
