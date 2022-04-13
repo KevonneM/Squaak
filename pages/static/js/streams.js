@@ -1,13 +1,7 @@
 const APP_ID = 'e393edf6a2064a009f02a0dbd24284c5'
-<<<<<<< HEAD
 const CHANNEL = sessionStorage.getItem('room')
 const TOKEN = sessionStorage.getItem('token')
 let UID = Nuber(sessionStorage.getItem('UID'))
-=======
-const CHANNEL = 'btn'
-const TOKEN = '006e393edf6a2064a009f02a0dbd24284c5IADqVW3wF6mKTfwc7KYnJFcc7mCmsgmvrQ13NeWhe1ktp/E2S1UAAAAAEABg4SwUlttNYgEAAQCW201i'
-let UID;
->>>>>>> main
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
 
@@ -106,8 +100,4 @@ document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLoc
 
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 
-<<<<<<< HEAD
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
-=======
-document.getElementById('mic-btn').addEventListener('click', toggleMic)
->>>>>>> main
