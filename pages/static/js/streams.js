@@ -1,7 +1,7 @@
 const APP_ID = 'e393edf6a2064a009f02a0dbd24284c5'
 const CHANNEL = sessionStorage.getItem('room')
 const TOKEN = sessionStorage.getItem('token')
-let UID = Nuber(sessionStorage.getITem('UID'))
+let UID = Nuber(sessionStorage.getItem('UID'))
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
 
@@ -20,9 +20,6 @@ let joinAndDisplayLocalStream = async () => {
         console.error(error)
         window.open('/','_self')
     }
-    console.error(error)
-        window.open('/','_self')
-    
 
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
 
