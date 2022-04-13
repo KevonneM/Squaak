@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3bca3c26b6724e14b2fb9366a408f286fc83fbd67778638ff0f866daa5119783"
+            "sha256": "aee12cb2b756140229ac44f88057bf026b99eac91084563ed34ca2c7194f16c1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,13 @@
         ]
     },
     "default": {
+        "agora-token-builder": {
+            "hashes": [
+                "sha256:6a22a35baf748dc80ca054ba7e293ba16c22dc7eae85396ffb41e80f13f9c2f1"
+            ],
+            "index": "pypi",
+            "version": "==1.0.0"
+        },
         "asgiref": {
             "hashes": [
                 "sha256:2f8abc20f7248433085eda803936d98992f1343ddb022065779f37c5da0181d0",
@@ -337,10 +344,10 @@
         },
         "soupsieve": {
             "hashes": [
-                "sha256:1a3cca2617c6b38c0343ed661b1fa5de5637f257d4fe22bd9f1338010a1efefb",
-                "sha256:b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9"
+                "sha256:0bcc6d7432153063e3df09c3ac9442af3eba488715bfcad6a4c38ccb2a523124",
+                "sha256:a714129d3021ec17ce5be346b1007300558b378332c289a1a20e7d4de6ff18a5"
             ],
-            "version": "==2.3.1"
+            "version": "==2.3.2"
         },
         "sqlparse": {
             "hashes": [

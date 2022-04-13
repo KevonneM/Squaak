@@ -6,4 +6,5 @@ app_name = 'videochat'
 urlpatterns = [
     path('videochatlobby/', views.videochatlobbyviews, name='lobby'),
     path('videochatroom/', views.videochatroomviews, name='room'),
+    path('get_token/', views.getToken),
 ]
