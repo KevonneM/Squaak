@@ -10,11 +10,7 @@ django-bootstrap4 = "*"
 Pillow = "*"
 django-autoslug = "*"
 channels = "*"
-<<<<<<< HEAD
 agora-token-builder = "*"
-=======
-django = "*"
->>>>>>> main
 
 [dev-packages]
 
