@@ -11,6 +11,7 @@ Pillow = "*"
 django-autoslug = "*"
 channels = "*"
 agora-token-builder = "*"
+channels-redis = "*"
 
 [dev-packages]
 
