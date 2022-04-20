@@ -296,7 +296,7 @@ div .card{
     display: flex;
     flex-wrap: wrap;
     height: 85vh;
-    width: 75%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -327,10 +327,18 @@ div .card{
     left: 10px;
     z-index: 9999;
     background-color: rgba(0,0,0,0.3 );
+    width: fit-content;
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
     color: #fff;
+}
+
+@media screen and (max-width:1650px){
+    .video-container{
+        flex-basis: 300px;
+        min-height: 200px;
+    }
 }
 
 /* ----- rooom styling controls ------ */
