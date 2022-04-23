@@ -1,43 +1,144 @@
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
-class ChatConsumer(AsyncWebsocketConsumer):
+from .models import OnetoOneRoom, Message
+
+class ChatConsumer(WebsocketConsumer):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs)
+        self.room_name = None
+        self.room_group_name = None
+        self.room = None
+        self.user = None
+        self.user_inbox = None
+
     # Called on connection.
-    async def connect(self):
-        self.room_group_name = 'test'
+    def connect(self):
+
+        self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.room_group_name = f'chat_{self.room_name}'
+        self.room = OnetoOneRoom.objects.get(name=self.room_name)
+        self.user = self.scope['user']
+        self.user_inbox = f'inbox_{self.user.username}'
+
+        # Accepts the WebSocket connection.
+        self.accept()
         
         # Joins the room group.
-        await self.channel_layer.group_add(
+        async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
-            self.channel_name
+            self.channel_name,
         )
-        # Accepts the WebSocket connection.
-        await self.accept()
 
-    async def disconnect(self, message):
+        # Display the user list to the newly joined user.
+        self.send(json.dumps({
+            'type': 'user_list',
+            'users': [user.username for user in self.room.online.all()],
+        }))
+
+        if self.user.is_authenticated:
+            # Adds the user to the user_inbox group on connect.
+            async_to_sync(self.channel_layer.group_add)(
+                self.user_inbox,
+                self.channel_name,
+            )
+
+            # Sends the join event to the chatroom.
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'user_join',
+                    'user': self.user.username,
+                }
+            )
+            self.room.online.add(self.user)
+            
+        
+
+    def disconnect(self, close_code):
+        async_to_sync(self.channel_layer.group_discard)(
+            self.room_group_name,
+            self.channel_name,
+        )
+
+        if self.user.is_authenticated:
+            # Removes user from user_inbox group on disconnect.
+            async_to_sync(self.channel_layer.group_add)(
+                self.user_inbox,
+                self.channel_name,
+            )
+
+            # Sends the leave event to the chatroom.
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'user_leave',
+                    'user': self.user.username,
+                }
+            )
+            self.room.online.remove(self.user)
+            
         # When the socket disconnects.
-        print('disconnected', message)
+        print('Disconnected')
 
-    # Receive message from WebSocket.
-    async def receive(self, text_data):
+    # Data is parsed to json and message is extracted
+    # Message is forwarded using group send to chat message.
+    def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        # Sends the Event to a group.
-        await self.channel_layer.group_send(
+        if not self.user.is_authenticated:
+            return
+
+        if message.startswith('/pm'):
+            split = message.split(' ', 2)
+            target = split[1]
+            target_msg = split[2]
+
+            # Sends private message to target inbox.
+            async_to_sync(self.channel_layer.group_send)(
+                f'inbox_{target}',
+                {
+                    'type': 'private_message',
+                    'user': self.user.username,
+                    'message': target_msg,
+                }
+            )
+
+            # sends 'private message delivered' to the user.
+            self.send(json.dumps({
+                'type': 'private_message_delivered',
+                'target': target,
+                'message': target_msg,
+            }))
+            return
+
+        # Sends the chat message Event to the room.
+        async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
+                'user': self.user.username,
                 'type': 'chat_message',
                 'message': message
             }
         )
-    # Receive message from room group.
-    async def chat_message(self, event):
-        message = event['message']
+        Message.objects.create(user=self.user, room=self.room, content=message)
 
-        # Send message to Websocket.
-        await self.send(text_data=json.dumps({
-            'type': 'chat',
-            'message': message
-        }))
+    # Methods for message types for the channel layer.
+
+    def chat_message(self, event):
+        self.send(text_data=json.dumps(event))
+
+    def user_join(self, event):
+        self.send(text_data=json.dumps(event))
+
+    def user_leave(self,event):
+        self.send(text_data=json.dumps(event))
+
+    def private_message(self, event):
+        self.send(text_data=json.dumps(event))
+
+    def private_message_delivered(self, event):
+        self.send(text_data=json.dumps(event))
