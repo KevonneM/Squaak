@@ -4,7 +4,7 @@ from users.models import CustomUser
 
 # Create your models here.
 
-class OnetoOneRoom(models.Model):
+class ChatRoom(models.Model):
     """One to One room logic to create room between user1 and user2."""
 
     name = models.CharField(max_length=128)
@@ -26,7 +26,7 @@ class OnetoOneRoom(models.Model):
 
 class Message(models.Model):
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
-    room = models.ForeignKey(to=OnetoOneRoom, on_delete=models.CASCADE)
+    room = models.ForeignKey(to=ChatRoom, on_delete=models.CASCADE)
     content = models.CharField(max_length=512)
     timestamp = models.DateTimeField(auto_now_add=True)
 

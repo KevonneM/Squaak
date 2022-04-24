@@ -13,11 +13,11 @@ document.querySelector("#roomInput").onkeyup = function(e) {
 // Used to redirect to private_chat_room/room_input.
 document.querySelector("#roomConnect").onclick = function() {
     let roomName = document.querySelector("#roomInput").value;
-    window.location.pathname = "messenger/private_chat_room/" + roomName + "/";
+    window.location.pathname = "messenger/chat_room/" + roomName + "/";
 }
 
 // Used to redirect to roomSelect.
 document.querySelector("#roomSelect").onchange = function() {
     let roomName = document.querySelector("#roomSelect").value.split(" (")[0];
-    window.location.pathname = "messenger/private_chat_room/" + roomName + "/"
+    window.location.pathname = "messenger/chat_room/" + roomName + "/"
 }
