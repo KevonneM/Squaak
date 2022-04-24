@@ -2,7 +2,7 @@ import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
-from .models import OnetoOneRoom, Message
+from .models import ChatRoom, Message
 
 class ChatConsumer(WebsocketConsumer):
 
@@ -19,7 +19,7 @@ class ChatConsumer(WebsocketConsumer):
 
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = f'chat_{self.room_name}'
-        self.room = OnetoOneRoom.objects.get(name=self.room_name)
+        self.room = ChatRoom.objects.get(name=self.room_name)
         self.user = self.scope['user']
         self.user_inbox = f'inbox_{self.user.username}'
 

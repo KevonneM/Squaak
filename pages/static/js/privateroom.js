@@ -56,7 +56,7 @@ chatMessageSend.onclick = function() {
 let chatSocket = null;
 
 function connect() {
-    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/messenger/private_chat_room/" + roomName + "/");
+    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/messenger/chat_room/" + roomName + "/");
     
     chatSocket.onopen = function(e) {
         console.log("Successfully connected to the WebSocket.");
