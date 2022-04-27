@@ -20,11 +20,11 @@
 <main>
     
     <div class="container mt-3 p-5">
-        <h2>public-django-channels-chat</h2>
+        <h2>Direct-django-channels-chat</h2>
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="mb-2">
-                    <label for="chatLog">Room: #{{ room.name }}</label>
+                    <label for="chatLog">Room: #{{ private_room.name }}</label>
                     <textarea class="form-control" id="chatLog" readonly></textarea>
                 </div>
                 <div class="input-group">
@@ -40,11 +40,11 @@
                 </select>
             </div>
         </div>
-        {{ room.name|json_script:"roomName" }}
+        {{ private_room.name|json_script:"userName" }}
     </div>
 
 </main>
 
-<script src="{% static 'js/publicchat.js' %}"></script>
+<script src="{% static 'js/directchat.js' %}"></script>
 
 {% endblock content %}
