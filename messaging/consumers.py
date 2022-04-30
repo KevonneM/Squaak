@@ -231,6 +231,8 @@ class DirectChatConsumer(WebsocketConsumer):
         if not self.user.is_authenticated:
             return
 
+        self.save_message(text_data_json['message'])
+
         # Sends the chat message Event to the room.
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
@@ -241,7 +243,12 @@ class DirectChatConsumer(WebsocketConsumer):
             }
         )
 
-        PrivateMessage.objects.create(user=self.user, privateroom=self.room, content=message)
+    def save_message(self, message):
+
+        saved_message = PrivateMessage.objects.create(user=self.user, privateroom=self.room, content=message)
+
+        saved_message.save()
+        return saved_message
         
 
     # Methods for message types for the channel layer.
