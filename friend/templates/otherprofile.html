@@ -25,8 +25,11 @@
   <a href="{% url 'friend:cancel-friend-request' user.pk %}">Cancel Friend Request</a>
 </div>
 {% endif %}
+
+
 <div>
-  <a href="{% url 'messaging:direct-chat' user.username %}">Send a direct Message.</a>
+  <a href="{% url 'messaging:direct-chat' user.pk %}">Message other user!</a>
 </div>
+
 
 {% endblock content %}

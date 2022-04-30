@@ -8,5 +8,5 @@ app_name = 'messaging'
 urlpatterns = [
     path('messenger/', views.messaging_page, name='messenger'),
     path('messenger/chat_room/<str:room_name>/', views.chat_room, name='chat-room'),
-    path('messenger/direct_chat/<str:username>/', views.direct_chat_room, name='direct-chat'),
+    path('messenger/direct_chat/<int:pk>/', views.direct_chat_room, name='direct-chat'),
 ]

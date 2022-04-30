@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
@@ -31,10 +31,43 @@ def chat_room(request, room_name):
         'room': room,
     })
 
-def direct_chat_room(request, username):
+# View to initiate a direct chat session with current user information.
+# The initiator of a direct chat will always be set to the user1 field of each Private Chat Room object.
+# If the current user == user2 of the object they will access that existing room.
+def direct_chat_room(request, pk):
     
-    private_room, created = PrivateChatRoom.objects.get_or_create(name=username)
+    current_user = request.user
+    other_user = CustomUser.objects.get(pk=pk)
 
-    return render(request, 'directchatroom.html', {
-        'private_room': private_room,
-   })
+    # If chat does not exist, create one with current user being user1,
+    if not PrivateChatRoom.objects.filter(user1=request.user, user2=other_user).exists() and not PrivateChatRoom.objects.filter(user2=request.user, user1=other_user).exists():
+        PrivateChatRoom.objects.create(user1=request.user, user2=other_user)
+
+        user1chat = PrivateChatRoom.objects.get(user1=request.user, user2=other_user)
+
+        return render(request, 'user1directchatroom.html', {
+            'user1chat': user1chat,
+        })
+
+    # If chat does exist with the current user == user1 and the other_user == user2, join that chatroom.
+    if PrivateChatRoom.objects.filter(user1=request.user, user2=other_user).exists():
+        direct_chat = PrivateChatRoom.objects.get(user1=request.user, user2=other_user)
+        if request.user == direct_chat.user1:
+            user1chat = PrivateChatRoom.objects.get(user1=request.user, user2=other_user)
+            return render(request, 'user1directchatroom.html', {
+                'user1chat': user1chat,
+            })
+
+    # If chat does exist with the current user == user2 and the other_user == user1, join that chatroom.
+    if PrivateChatRoom.objects.filter(user2=request.user, user1=other_user).exists():
+        direct_chat = PrivateChatRoom.objects.get(user2=request.user, user1=other_user)
+        if request.user == direct_chat.user2:
+            user2chat = PrivateChatRoom.objects.get(user1=other_user, user2=request.user)
+            return render(request, 'user2directchatroom.html', {
+                'user2chat': user2chat,
+            })
+
+    else:
+        raise Http404('User not authorized for this chatroom.')
+######################################################
+######################################################################

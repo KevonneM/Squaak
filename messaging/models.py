@@ -31,7 +31,13 @@ class PrivateChatRoom(models.Model):
 
     name = models.CharField(max_length=128)
     online = models.ManyToManyField(to=CustomUser, blank=True)
-    chat_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    
+    # user1 and user2 can initiate multiple direct chat rooms.
+    user1 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user1")
+    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user2")
+
+    # Universally Unique Identifier for each Private Chat Room instance involving the fields above.
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     def get_online_count(self):
         return self.online.count()
@@ -45,7 +51,7 @@ class PrivateChatRoom(models.Model):
         self.save()
 
     def __str__(self):
-        return f'{self.name} ({self.get_online_count()})'
+        return "DirectChat between: {} and {}".format(self.user1.username, self.user2.username)
 
 class Message(models.Model):
     """Structure for messages."""
