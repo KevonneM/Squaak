@@ -26,10 +26,11 @@
 </div>
 {% endif %}
 
-
+{% if user in current_user.friends.all and user != current_user %}
 <div>
   <a href="{% url 'messaging:direct-chat' user.pk %}">Message other user!</a>
 </div>
+{% endif %}
 
 
 {% endblock content %}

@@ -1,4 +1,5 @@
 from webbrowser import get
+from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -14,7 +15,7 @@ def otherprofilepageview(request, pk):
     
     user = get_object_or_404(CustomUser, pk=pk)
     current_user = request.user
-    sent_friend_request = FriendRequest.objects.all()
+    sent_friend_request = FriendRequest.objects.filter(sender=current_user, receiver=user)
 
     context = {
         'user': user,

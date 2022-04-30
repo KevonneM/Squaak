@@ -36,7 +36,7 @@
     {% for ini in initiated_direct_chats %}
     <h1>created by: {{ request.user }}</h1>
     <h1>chatting with: {{ ini.user2 }}</h1>
-        <a href="{% url 'messaging:create-direct-chat' ini.user2.pk %}">Message {{ ini.user2 }}</a>
+        <a href="{% url 'messaging:direct-chat' ini.user2.pk %}">Message {{ ini.user2 }}</a>
     {% endfor %}
 </div>
 
@@ -45,20 +45,7 @@
     {% for rec in received_direct_chats %}
     <h1>created by: {{ rec.user1 }}</h1>
     <h1>chatting with: {{ request.user }}</h1>
-        <a href="{% url 'messaging:join-direct-chat' rec.user1.pk %}">Message {{ rec.user1 }}</a>
-    {% endfor %}
-</div>
-
-<div>
-    <h1>Friends</h1>
-    {% for friend in friends %}
-    <h1>{{friend.username}}
-        <a href="{% url 'friend:profile_view' friend.pk %}">View Profile</a>
-        <a href="{% url 'friend:delete-friend' friend.pk %}">Remove Friend</a>
-    </h1>
-
-    <a href="{% url 'messaging:create-direct-chat' friend.pk %}"> Message as initiator!</a>
-    <a href="{% url 'messaging:join-direct-chat' friend.pk %}">Receiver may join chat!</a>
+        <a href="{% url 'messaging:direct-chat' rec.user1.pk %}">Message {{ rec.user1 }}</a>
     {% endfor %}
 </div>
 
