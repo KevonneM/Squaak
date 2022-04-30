@@ -164,9 +164,9 @@ class DirectChatConsumer(WebsocketConsumer):
     def connect(self):
         # Initialize attributes properly based on available info.
         # Room info must be made unique for each pair of users.
-        self.room_name = self.scope['url_route']['kwargs']['username']
+        self.room_name = self.scope['url_route']['kwargs']['pk']
         self.room_group_name = f'chat_{self.room_name}'
-        self.room = PrivateChatRoom.objects.get(name=self.room_name)
+        self.room = PrivateChatRoom.objects.get(pk=self.room_name)
         self.user = self.scope['user']
         
         # Accepts the WebSocket connection.
@@ -201,7 +201,7 @@ class DirectChatConsumer(WebsocketConsumer):
 
     def disconnect(self, close_code):
 
-        self.room = PrivateChatRoom.objects.get(name=self.room_name)
+        self.room = PrivateChatRoom.objects.get(pk=self.room_name)
 
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,

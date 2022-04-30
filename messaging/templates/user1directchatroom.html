@@ -21,10 +21,11 @@
     
     <div class="container mt-3 p-5">
         <h2>Direct-django-channels-chat</h2>
+        <h2>Direct chat between {{ user1chat.user1.username }} and {{ user1chat.user2.username }}</h2>
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="mb-2">
-                    <label for="chatLog">Room: #{{ private_room.name }}</label>
+                    <label for="chatLog">Direct Chat Room object ID: #{{ user1chat.id }}</label>
                     <textarea class="form-control" id="chatLog" readonly></textarea>
                 </div>
                 <div class="input-group">
@@ -40,7 +41,7 @@
                 </select>
             </div>
         </div>
-        {{ private_room.name|json_script:"userName" }}
+        {{ user1chat.id|json_script:"private_room_id" }}
     </div>
 
 </main>

@@ -1,7 +1,7 @@
 console.log("Js check from directchat.js");
 
 // Retrieving room.name from html template tags and passing it to roomName.
-const userName = JSON.parse(document.getElementById('userName').textContent);
+const private_room_id = JSON.parse(document.getElementById('private_room_id').textContent);
 
 // Initialize variables based on the html elements.
 let chatLog = document.querySelector("#chatLog");
@@ -56,7 +56,7 @@ chatMessageSend.onclick = function() {
 let chatSocket = null;
 
 function connect() {
-    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/messenger/direct_chat/" + userName + "/");
+    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/messenger/direct_chat/" + private_room_id + "/");
     
     chatSocket.onopen = function(e) {
         console.log("Successfully connected to the WebSocket.");

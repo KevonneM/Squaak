@@ -2,6 +2,7 @@ from webbrowser import get
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from messaging.models import PrivateChatRoom
 from users.models import Profile, CustomUser
 from .models import FriendRequest
 from django.contrib import messages
@@ -31,11 +32,17 @@ def friends_list(request):
 
     sent_friend_requests = FriendRequest.objects.filter(sender=request.user)
     rec_friend_requests = FriendRequest.objects.filter(receiver=request.user)
+
+    initiated_direct_chats = PrivateChatRoom.objects.filter(user1=request.user)
+    received_direct_chats = PrivateChatRoom.objects.filter(user2=request.user)
     
     context = {
         'friends': friends,
         'sent_friend_requests': sent_friend_requests,
-        'rec_friend_requests': rec_friend_requests
+        'rec_friend_requests': rec_friend_requests,
+
+        'initiated_direct_chats': initiated_direct_chats,
+        'received_direct_chats': received_direct_chats,
     }
     return render(request, "friends.html", context)
 
