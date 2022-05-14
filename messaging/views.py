@@ -4,11 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
 from users.models import CustomUser
-from messaging.models import ChatRoom, Message, PrivateChatRoom
-
-from messaging.consumers import ChatConsumer
-from django.contrib.auth import get_user_model
-from channels.layers import get_channel_layer
+from messaging.models import ChatRoom, Message, PrivateChatRoom, PrivateMessage
 
 #since django runs synchronously and channel_layer runs asynchronous.
 #we need to explicitly tell channel_layer to run it in synchronous.
@@ -34,6 +30,7 @@ def chat_room(request, room_name):
 # View to initiate a direct chat session with current user information.
 # The initiator of a direct chat will always be set to the user1 field of each Private Chat Room object.
 # If the current user == user2 of the object they will access that existing room.
+@login_required
 def direct_chat_room(request, pk):
     
     current_user = request.user
@@ -50,24 +47,34 @@ def direct_chat_room(request, pk):
         })
 
     # If chat does exist with the current user == user1 and the other_user == user2, join that chatroom.
+    # Chat messages that are linked to the private room are passed to the template aswell.
     if PrivateChatRoom.objects.filter(user1=request.user, user2=other_user).exists():
+
         direct_chat = PrivateChatRoom.objects.get(user1=request.user, user2=other_user)
+        chat_messages = []
+        
         if request.user == direct_chat.user1:
             user1chat = PrivateChatRoom.objects.get(user1=request.user, user2=other_user)
+            chat_messages = PrivateMessage.objects.filter(privateroom=direct_chat)
             return render(request, 'user1directchatroom.html', {
                 'user1chat': user1chat,
+                'chat_messages': chat_messages,
             })
 
     # If chat does exist with the current user == user2 and the other_user == user1, join that chatroom.
+    # Chat messages that are linked to the private room are passed to the template aswell.
     if PrivateChatRoom.objects.filter(user2=request.user, user1=other_user).exists():
+
         direct_chat = PrivateChatRoom.objects.get(user2=request.user, user1=other_user)
+        chat_messages = []
+        
         if request.user == direct_chat.user2:
             user2chat = PrivateChatRoom.objects.get(user1=other_user, user2=request.user)
+            chat_messages = PrivateMessage.objects.filter(privateroom=direct_chat)
             return render(request, 'user2directchatroom.html', {
                 'user2chat': user2chat,
+                'chat_messages': chat_messages,
             })
 
     else:
         raise Http404('User not authorized for this chatroom.')
-######################################################
-######################################################################
