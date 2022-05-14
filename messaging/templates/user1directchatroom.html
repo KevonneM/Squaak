@@ -26,7 +26,12 @@
             <div class="col-12 col-md-8">
                 <div class="mb-2">
                     <label for="chatLog">Direct Chat Room object ID: #{{ user1chat.id }}</label>
-                    <textarea class="form-control" id="chatLog" readonly></textarea>
+                    <textarea class="form-control" id="chatLog" readonly>
+                        {% for message in chat_messages %}
+                            {{ message.timestamp }}
+                            {{ message.user.username }}: {{ message.content }}
+                        {% endfor %}
+                    </textarea>
                 </div>
                 <div class="input-group">
                     <input type="text" class="form-control" id="chatMessageInput" placeholder="Enter your chat message">
