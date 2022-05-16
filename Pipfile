@@ -12,6 +12,7 @@ django-autoslug = "*"
 channels = "*"
 agora-token-builder = "*"
 channels-redis = "*"
+python-decouple = "*"
 
 [dev-packages]
 

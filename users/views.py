@@ -20,7 +20,7 @@ class SignUpView(CreateView):
                 username = form.cleaned_data.get('username')
                 email = form.cleaned_data.get('email')
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('pages:home')
+    success_url = reverse_lazy('users:login')
     template_name = 'signup.html'
 
 class CustomPasswordChangeView(PasswordChangeView):
