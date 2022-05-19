@@ -27,10 +27,10 @@
                 <div class="mb-2">
                     <label for="chatLog">Direct Chat Room object ID: #{{ user1chat.id }}</label>
                     <textarea class="form-control" id="chatLog" readonly>
-                        {% for message in chat_messages %}
-                            {{ message.timestamp }}
-                            {{ message.user.username }}: {{ message.content }}
-                        {% endfor %}
+                    {% for message in chat_messages %}
+                        {{ message.timestamp }}
+                        {{ message.user.username }}: {{ message.content }}
+                    {% endfor %}
                     </textarea>
                 </div>
                 <div class="input-group">

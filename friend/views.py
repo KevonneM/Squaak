@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from messaging.models import PrivateChatRoom
+from videochat.models import PrivateVideoChatRoom
 from users.models import Profile, CustomUser
 from .models import FriendRequest
 from django.contrib import messages
@@ -36,6 +37,9 @@ def friends_list(request):
 
     initiated_direct_chats = PrivateChatRoom.objects.filter(user1=request.user)
     received_direct_chats = PrivateChatRoom.objects.filter(user2=request.user)
+
+    initiated_video_chats = PrivateVideoChatRoom.objects.filter(videouser1=request.user)
+    received_video_chats = PrivateVideoChatRoom.objects.filter(videouser2=request.user)
     
     context = {
         'friends': friends,
@@ -44,6 +48,9 @@ def friends_list(request):
 
         'initiated_direct_chats': initiated_direct_chats,
         'received_direct_chats': received_direct_chats,
+
+        'initiated_video_chats': initiated_video_chats,
+        'received_video_chats': received_video_chats,
     }
     return render(request, "friends.html", context)
 

@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from messaging.managers import ThreadManager
 from users.models import CustomUser
 import uuid
 

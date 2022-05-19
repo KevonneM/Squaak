@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<main>
+    <section id="room-name-wrapper">
+        <p>Videochat with: {{ user2videochat.videouser1.username }}<span id="room-name"></span></p> 
+        <h1>VideoChat ID: #{{ user2videochat.id }}</h1>
+    </section>
+
+    <section id ="video-streams"></section>
+
+    <section id="controls-wrapper">
+
+        <div id="icon-wrappper">
+            <img class="control-icon" id="mic-btn" scr="{% static 'images/microphone.svg' %}">
+        </div> 
+
+        <div id="icon-wrappper">
+            <img class="control-icon" id="camera-btn" scr="{% static 'images/video.svg' %}">
+        </div> 
+
+        <div id="icon-wrappper">
+            <img class="control-icon" id="leave-btn" scr="{% static 'images/leave.svg' %}">
+        </div> 
+
+   </section>
+   
+</main>
+
+<script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.10.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/privatevideo.js' %}"></script>
+{% endblock content %}

@@ -30,7 +30,36 @@
 <div>
   <a href="{% url 'messaging:direct-chat' user.pk %}">Message other user!</a>
 </div>
+<div>
+  <a id="videochat" href="{% url 'videochat:private-video-chat' user.pk %}">VideoChat other user!</a>
+</div>
 {% endif %}
+
+{{ user.pk|json_script:"videochat.pk" }}
+
+<script type="text/javascript">
+
+  let videochat_pk = JSON.parse(document.getElementById('videochat.pk').textContent);
+
+  let handleSubmit = async (e) => {
+      e.preventDefault()
+      let room = videochat_pk
+
+      let response = await fetch(`/get_token/?channel=${room}`)
+      let data = await response.json()
+      
+      let UID = data.uid
+      let token = data.token
+
+      sessionStorage.setItem('UID', UID)
+      sessionStorage.setItem('token', token)
+      sessionStorage.setItem('room', room)
+
+      window.open('/privatevideochat/'+videochat_pk+'/', '_self')
+  }
+
+  document.getElementById("videochat").addEventListener('click', handleSubmit)
+</script>
 
 
 {% endblock content %}
