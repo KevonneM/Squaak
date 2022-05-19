@@ -36,7 +36,7 @@ def direct_chat_room(request, pk):
     current_user = request.user
     other_user = CustomUser.objects.get(pk=pk)
 
-    # If chat does not exist, create one with current user being user1,
+    # If chat does not exist, create one with current user being user1.
     if not PrivateChatRoom.objects.filter(user1=request.user, user2=other_user).exists() and not PrivateChatRoom.objects.filter(user2=request.user, user1=other_user).exists():
         PrivateChatRoom.objects.create(user1=request.user, user2=other_user)
 

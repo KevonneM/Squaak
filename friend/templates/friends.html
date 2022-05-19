@@ -49,12 +49,22 @@
     {% endfor %}
 </div>
 
+<div>
+    <h1>Initiated Video Chats</h1>
+    {% for inivid in initiated_video_chats %}
+    <h1>created by: {{ request.user }}</h1>
+    <h1>chatting with: {{ inivid.videouser2 }}</h1>
+        <a href="{% url 'videochat:private-video-chat' inivid.videouser2.pk %}">Jump in videochat with {{ inivid.videouser2 }}</a>
+    {% endfor %}
+</div>
+
+<div>
+    <h1>Received Video Chats</h1>
+    {% for recvid in received_video_chats %}
+    <h1>created by: {{ recvid.videouser1 }}</h1>
+    <h1>chatting with: {{ request.user }}</h1>
+        <a href="{% url 'videochat:private-video-chat' recvid.videouser1.pk %}">Jump in videochat with {{ recvid.videouser1 }}</a>
+    {% endfor %}
+</div>
+
 {% endblock content %}
-
-<!---------------------------------------
-if friend in initiated_direct_chats.user2
-    then: display create-direct-chat link
-
-elif friend in received_direct_chats.user1
-    then: display join-direct-chat link
--------------------------------------------->
