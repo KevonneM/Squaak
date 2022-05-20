@@ -64,10 +64,11 @@ class Message(models.Model):
 
 class PrivateMessage(models.Model):
     """Structure for messages."""
-    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    private_sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='private_sender')
+    private_receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     privateroom = models.ForeignKey(to=PrivateChatRoom, on_delete=models.CASCADE)
     content = models.CharField(max_length=512)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Private Messages: {self.user.username}: {self.content} [{self.timestamp}]'
+        return f'Private Message From: {self.private_sender.username}: {self.content} [{self.timestamp}] to {self.private_receiver.username}'

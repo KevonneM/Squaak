@@ -1,3 +1,4 @@
+from distutils.sysconfig import customize_compiler
 import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
@@ -168,7 +169,14 @@ class DirectChatConsumer(WebsocketConsumer):
         self.room_group_name = f'chat_{self.room_name}'
         self.room = PrivateChatRoom.objects.get(pk=self.room_name)
         self.user = self.scope['user']
-        
+
+        # If the chat initiator, other user object is equal to the receiver
+        if self.user == self.room.user1:
+            self.other_user = CustomUser.objects.get(pk=self.room.user2.pk)
+        # Else Other user object was the initiator.
+        else:
+            self.other_user = CustomUser.objects.get(pk=self.room.user1.pk)
+
         # Accepts the WebSocket connection.
         self.accept()
 
@@ -245,7 +253,7 @@ class DirectChatConsumer(WebsocketConsumer):
 
     def save_message(self, message):
 
-        saved_message = PrivateMessage.objects.create(user=self.user, privateroom=self.room, content=message)
+        saved_message = PrivateMessage.objects.create(private_sender=self.user, private_receiver=self.other_user, privateroom=self.room, content=message)
 
         saved_message.save()
         return saved_message
