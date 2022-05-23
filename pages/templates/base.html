@@ -3,6 +3,7 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 {% load crispy_forms_tags %}
+{% load notifications_tags %}
     
 <!DOCTYPE html>
 <html>
@@ -12,12 +13,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"  type="text/css" href="{% static 'pages/css/style.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     {% block title %}
 
     <title>Squaak</title>
 
     {% endblock title %}
-
 
 
 </head>
@@ -54,6 +57,23 @@
                       <input class="form-control mr-sm-2" type="search" placeholder="Search" name="user_name">
                       <button class="btn btn-info" type="submit">Search</button>
                     </form>
+
+                    <div class="dropdown">
+                        <a href="#" class="notification dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+                          <i class="fa fa-bell" style="font-size:24px"></i>
+                          <span class="badge">{% live_notify_badge %}</span>
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                {% for notification in  user.notifications.unread %}
+                                    <div>
+                                    <h3>Message from {{ notification.actor }}</h3>
+                                  <button class="dropdown-item" type="button">{{ notification.description }}</button>			
+                                  </div>
+                                  <div class="dropdown-divider"></div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        {% live_notify_list list_class="dropdown-menu" %}
                     
                     <h3 id="user-greeting">Hello {{ request.user.username }}</h3>    
                     <div class="dropdown">
@@ -88,4 +108,27 @@
         </div>
     </main>
 </body>
+
+<style>
+    .notification {
+      color: white;
+      text-decoration: none;
+      padding: 15px 26px;
+      position: relative;
+      display: inline-block;
+      border-radius: 2px;
+    }
+     
+    .notification .badge {
+      position: absolute;
+      top: 2px;
+      right: 30px;
+      padding: 5px 10px;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+    }
+    </style>
+<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
 </html>

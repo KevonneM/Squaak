@@ -4,12 +4,19 @@ from django.views.generic import TemplateView, ListView
 from friend.models import FriendRequest
 from users.models import CustomUser, Profile
 from users.forms import CustomUserChangeForm, ProfileUpdateForm
+from messaging.models import PrivateMessage
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from notifications.signals import notify
 
 # Create your views here.
 
 # HomePage View.
-class HomePageView(TemplateView):
-    template_name = 'home.html'
+def homepage_view(request):
+
+    return render(request, 'home.html')
 
 # View for the Profile page.
 def myprofilepageview(request, pk):
@@ -43,3 +50,15 @@ class SearchView(ListView):
         object_list = CustomUser.objects.filter(username__icontains=query)
 
         return object_list
+
+@receiver(post_save, sender=PrivateMessage)
+def message_to_noti(sender, instance, created, **kwargs):
+
+    if created:
+        current_user = CustomUser.objects.get(pk=instance.private_receiver.pk)
+        msg_sender = instance.private_sender.username
+
+        content = instance.content
+
+        # Actor for notification is the sender.
+        notify.send(instance.private_sender, verb='Message Created', msg_sender=msg_sender, recipient=current_user, description=content, action_object=instance)

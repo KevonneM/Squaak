@@ -13,6 +13,7 @@ channels = "*"
 agora-token-builder = "*"
 channels-redis = "*"
 python-decouple = "*"
+django-notifications-hq = "*"
 
 [dev-packages]
 
