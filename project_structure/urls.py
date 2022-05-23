@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from django.conf import settings
 from django.conf.urls.static import static
+
+import notifications.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +28,8 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('', include('friend.urls')),
     path('', include('videochat.urls')),
-    path('', include('messaging.urls'))
+    path('', include('messaging.urls')),
+    re_path('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 
 # only adds if in debug.

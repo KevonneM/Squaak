@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.forms import IntegerField
 from users.models import CustomUser
 import uuid
 
@@ -65,10 +66,10 @@ class Message(models.Model):
 class PrivateMessage(models.Model):
     """Structure for messages."""
     private_sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='private_sender')
-    private_receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    private_receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='private_receiver')
     privateroom = models.ForeignKey(to=PrivateChatRoom, on_delete=models.CASCADE)
     content = models.CharField(max_length=512)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Private Message From: {self.private_sender.username}: {self.content} [{self.timestamp}] to {self.private_receiver.username}'
+        return f'Private Message From: {self.private_sender.username}: {self.content} [{self.timestamp}] to {self.private_receiver.username} | Post ID: {self.id}'
