@@ -67,7 +67,7 @@
                                 {% if user.notifications.unread %}
                                 <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path }}">Mark all as Read.</a>
                                 {% endif %}
-                                {% for notification in  user.notifications.unread %}
+                                {% for notification in user.notifications.unread|slice:"0:5" %}
                                     <div>
                                     <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
                                   <button class="dropdown-item" type="button">{{ notification.description }}</button>
