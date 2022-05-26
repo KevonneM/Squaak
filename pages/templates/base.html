@@ -62,23 +62,26 @@
                 </li>
               </ul>
 
-              <div class="dropdown">
-                <a href="#" class="notification dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
-                  <i class="fa fa-bell" style="font-size:24px"></i>
-                  <span class="badge">{% live_notify_badge %}</span>
-                </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2" class="dropdown-menu dropdown-menu-right">
-                        {% if user.notifications.unread %}
-                        <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path }}">Mark all as Read.</a>
-                        {% endif %}
-                        {% for notification in  user.notifications.unread|slice:"0:5" %}
-                            <div>
-                            <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
-                          <button class="dropdown-item" type="button">{{ notification.description }}</button>
-                          <a href="{% url 'notifications:mark_as_read' notification.slug %}?next={{ request.path }}">Mark As Read.</a>		
+                    <div class="dropdown">
+                        <a href="#" class="notification dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+                          <i class="fa fa-bell" style="font-size:24px"></i>
+                          <span class="badge">{% live_notify_badge %}</span>
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                {% if user.notifications.unread %}
+                                <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path }}">Mark all as Read.</a>
+                                {% endif %}
+                                {% for notification in user.notifications.unread|slice:"0:5" %}
+                                    <div>
+                                    <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
+                                  <button class="dropdown-item" type="button">{{ notification.description }}</button>
+                                  <a href="{% url 'notifications:mark_as_read' notification.slug %}?next={{ request.path }}">Mark As Read.</a>		
+                                  </div>
+                                  <div class="dropdown-divider"></div>
+                                {% endfor %}
+                            </div>
                           </div>
                           <div class="dropdown-divider"></div>
-                      {% endfor %}
                     </div>
                   </div>
                 {% live_notify_list list_class="dropdown-menu" %}
