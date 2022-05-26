@@ -3,20 +3,40 @@
 {% block content %}
 
 {% for result in object_list %}
-<div>
-   <h1>{{ result.username }}
-      <a href="{% url 'friend:profile_view' result.pk %}">View Profile</a>
-   </h1>
 
-{% if result.username == request.user.username %}
-   <h1>Current User</h1>
-{% endif %}
+</div>
+{% if result in request.user.friends.all and result.username != request.user.username %}
 
-{% if result not in request.user.friends.all and result.username != request.user.username %}
-   <h1>Not Friends</h1>
+<div class="card border-success mb-3 mt-3 ml-3" style="display: inline-block; max-width: auto; max-height: auto;">
+
 {% else %}
-   <h1>Friend</h1>
+
+<div class="card border-info mb-3 mt-3 ml-3" style="display: inline-block; max-width: auto; max-height: auto;">
+
 {% endif %}
+
+   <img class="card-img rounded-circle img-fluid" style=" max-height: 200px; max-width: 200px; "src="{{ result.profile.image.url }}">
+
+  <div class="card-header">{{ result.username }}</div>
+  <div class="card-body text-info">
+
+   {% if result.username == request.user.username %}
+      <h5 class="card-title">Current User</h5>
+   {% endif %}
+
+   {% if result not in request.user.friends.all and result.username != request.user.username %}
+      <h5 class="card-title">Status: Not Friends</h5>
+   {% elif result in request.user.friends.all and result.username != request.user.username %}
+      <h5 class="card-title">Status: Friend</h5>
+   {% endif %}
+      <h1>Bio:</h1>
+      <p class="card-text">{{ result.profile.bio }}</p>
+  </div>
+  <div class="card-footer bg-transparent border-info">
+     <a href="{% url 'friend:profile_view' result.pk %}">View Profile</a>
+   </div>
+</div>
+
 
 {% endfor %}
 
