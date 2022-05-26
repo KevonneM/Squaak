@@ -3,15 +3,20 @@
 
 {% block content %}
 
-<div class="container">
-  <div class="card">
-    <img id="profile-pic"class="card-img rounded-circle img-fluid" src="{{ user.profile.image.url }}">
+<div class="container" style="max-width: auto; max-height: auto;">
+  <div class="card border-info mt-3 mb-3" style="max-width: auto; max-height: auto;">
+    <img id="profile-pic"class="card-img rounded-circle img-fluid mx-auto mt-2" style="max-height: 200px; max-width: 200px;" src="{{ user.profile.image.url }}">
     <div id="profile-text"class="card-body">
+      <h1>Username:</h1>
       <h5 class="card-title">{{ user.username }}</h5>
-      <p class="card-text">{{ user.email }}</p>
+      <h1>E-mail:</h1>
+      <p class="card-text mb-2">{{ user.email }}</p>
+      <h1>Bio:</h1>
       <p class="card-text">{{ user.profile.bio }}</p>
     </div>
   </div>
+  </div>
+
   <form id="profile-form"method="post" enctype="multipart/form-data">
     {% if messages %}
       {% for message in messages %}
@@ -25,9 +30,9 @@
       {{ p_form|crispy }}
     </fieldset>
     <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Update</button>
+        <button class="btn btn-info" type="submit">Update</button>
     </div>
   </form>
-</div>
+
 
 {% endblock content %}
