@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"  type="text/css" href="{% static 'pages/css/style.css' %}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     {% block title %}
 
@@ -29,78 +29,92 @@
 
     <header>
 
-
-    <a href="{% url 'pages:home' %}"><h1 class="logo">Squaak</h1></a>
-
-        <div class="container">
-
-            <nav>
+        <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'pages:home' %}"><h1 class="great-vibes">Squaak <i class="fa-solid fa-feather-pointed"></i></h1> </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        
             {% if user.is_authenticated %}
-                <ul class="left-nav">
-                    <li><a class="left" href="{% url 'pages:home' %}">Home</a></li>
-                    <li><a class="left" href="{% url 'messaging:messenger' %}">Carrier pigeon</a></li>
-                    <li><a class="left" href="{% url 'friend:friends' %}">Flock</a></li>
-                    <li><a class="left" href="{% url 'videochat:lobby' %}">Video Chat</a></li>
-                </ul>
-            {% else %}
-                <ul class="left-nav">
-                    <li><a class="left" href="{% url 'pages:home' %}">Home</a></li>
-                    <li><a class="left" href="{% url 'users:login' %}">Carrier pigeon</a></li>
-                    <li><a class="left" href="{% url 'users:login' %}">Flock</a></li>
-                    <li><a class="left" href="{% url 'users:login' %}">Video Chat</a></li>
-                </ul>   
-            {% endif %}
-                
-                {% if user.is_authenticated %}
-                    
-                    <form id="search-bar" class="form-inline" action="{% url 'pages:search' %}" method="get">
-                      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="user_name">
-                      <button class="btn btn-info" type="submit">Search</button>
-                    </form>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'pages:home' %}">Home/Dashboard <i class="fa-solid fa-house-user"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'friend:friends' %}">Flock <i class="fa-solid fa-user-group"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'messaging:messenger' %}">Chat Rooms <i class="fa-solid fa-message"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'videochat:lobby' %}">Group Video Chat <i class="fa-solid fa-video"></i></a>
+                  </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'pages:my_profile' user.pk %}">Profile</a>
+                    <a class="dropdown-item" href="{% url 'users:change_password' %}">Change Password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'users:logout' %}">Sign out</a>
+                  </div>
+                </li>
+              </ul>
 
-                    <div class="dropdown">
-                        <a href="#" class="notification dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
-                          <i class="fa fa-bell" style="font-size:24px"></i>
-                          <span class="badge">{% live_notify_badge %}</span>
-                        </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                {% if user.notifications.unread %}
-                                <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path }}">Mark all as Read.</a>
-                                {% endif %}
-                                {% for notification in  user.notifications.unread %}
-                                    <div>
-                                    <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
-                                  <button class="dropdown-item" type="button">{{ notification.description }}</button>
-                                  <a href="{% url 'notifications:mark_as_read' notification.slug %}?next={{ request.path }}">Mark As Read.</a>		
-                                  </div>
-                                  <div class="dropdown-divider"></div>
-                              {% endfor %}
-                            </div>
+              <div class="dropdown">
+                <a href="#" class="notification dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+                  <i class="fa fa-bell" style="font-size:24px"></i>
+                  <span class="badge">{% live_notify_badge %}</span>
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2" class="dropdown-menu dropdown-menu-right">
+                        {% if user.notifications.unread %}
+                        <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path }}">Mark all as Read.</a>
+                        {% endif %}
+                        {% for notification in  user.notifications.unread|slice:"0:5" %}
+                            <div>
+                            <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
+                          <button class="dropdown-item" type="button">{{ notification.description }}</button>
+                          <a href="{% url 'notifications:mark_as_read' notification.slug %}?next={{ request.path }}">Mark As Read.</a>		
                           </div>
-                        {% live_notify_list list_class="dropdown-menu" %}
-                    
-                    <h3 id="user-greeting">Hello {{ request.user.username }}</h3>    
-                    <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu
-                    </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{% url 'pages:my_profile' user.pk %}">Profile</a>
-                            <a class="dropdown-item" href="{% url 'users:change_password' %}">Change Password</a>
-                            <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
-                        </div>
+                          <div class="dropdown-divider"></div>
+                      {% endfor %}
                     </div>
-                {% else %}
-                    
-                    <ul class="right-nav">
-                    <li class="User-buttons" ><a id="login" href="{% url 'users:login' %}">Login</a><li>
-                    <li class="User-buttons" ><a id="signup" href="{% url 'users:signup' %}">Signup</a></li>
-                    <li class="User-buttons" ><a id="forgot" href="{% url 'users:reset_password' %}">Forgot Password</a></li>
-                    </ul>
-                {% endif %}
+                  </div>
+                {% live_notify_list list_class="dropdown-menu" %}
 
-            </nav>
-        </div>
+              <form id="search-bar" class="form-inline" action="{% url 'pages:search' %}" method="get">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="user_name">
+                <button class="btn btn-info" type="submit">Search</button>
+            </form>
+        
+            </div>
+        
+            {% else %}
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pages:home' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">Sign in</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:signup' %}" >Sign up</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'users:reset_password' %}" >Forgot Password?</a>
+                    </li>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+        
+              {% endif %}
+        
+          </nav>
+    
     </header>
 
                     
@@ -110,7 +124,7 @@
         <div>
             {% block content %}{% endblock content %}
         </div>
-    </main>
+        
 </body>
 
 <style>
@@ -134,5 +148,6 @@
     }
     </style>
 <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/template.js' %}" type="text/javascript"></script>
 {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
 </html>

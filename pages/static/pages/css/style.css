@@ -102,137 +102,14 @@ input, select {
 }
 
 /* End of stylesheet reset. */
+.navbar-brand h1{
+    font-family: great-vibes, cursive;
+    font-size: 30px;
+}
 
 /* Start of my code. */
-
-header div {
-    width: 100%;
-    margin: 0 auto;
-    
-}
-
-header {
-    background-color: #B048FF;
-    line-height: 25px;
-}
-
-header::after{
-    content: '';
-    display: table;
-    clear: both;
-}
-
-.logo {
-    color: white;
-    float: left;
-    margin-top: 18px;
-    margin-left: 70px;
-    font-size: 35px;
-    border-right: 2px solid #111;
-    padding-right: 20px;
-}
-
-nav .left-nav{
-    float: left;
-    margin: 0;
-    margin: 0;
-    padding: 0;
-    
-}
-
-nav .right-nav{
-    float: right;
-    width: 25%;
-    margin: 0;
-    padding-right: 20px;
-    display: flex;
-    justify-content: flex-end
-}
-
-nav li {
-    display: inline-block;
-    margin-left: 20px;
-    padding-top: 19px;
-    padding-bottom: 20px;
-    line-height: 40px;
-    position: relative;
-}
-
-nav .left {
-    color:white;
-    text-decoration: none;
-    font-size: 15;
-}
-
-nav .left:hover {
-    color: black;
-}
-
-nav .left::before{
-    content: '';
-    display: block;
-    height: 5px;
-    background-color: black;
-
-    position: absolute;
-    top: 0;
-    width: 0%;
-    transition: all ease-in-out 250ms;
-}
-
-nav .left:hover::before {
-    width: 100%;
-}
-
-nav ul li #login{
-    color:white;
-    padding: 15px;
-    border: 1px solid #364a4c;
-    width: 100px;
-    line-height: 0px;
-    text-align: center;
-}
-
-nav ul li #signup{
-    color:white;
-    padding: 15px;
-    border: 1px solid #364a4c;
-    width: 100px;
-    line-height: 0px;
-    text-align: center;
-}
-#user-greeting{
-    width: 8%;
-    float: right;
-    transform: translateY(-25px);
-    margin-top: 0px;
-    margin-bottom: 5px;
-    height: 10px;
-    padding-bottom: 0px;
-    padding-right: 0px;
-    display: flex;
-    align-items: center;
-}
-.dropdown{
-    transform: translateX(85px);
-    width: 10%;
-    float: right;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 5px;
-}
-
-#dropdownMenuButton{
-    background-color: #A13AE0;
-}
-
-.dropdown-menu .dropdown-item{
-    transition-property: none;
-}
-/* search bar CSS */
-#search-bar{
-    width: 28%;
-    transform: translateX(300px) translateY(20px);
+#nav{
+    background-color: #B048FF !important;
 }
 /* Profile Form */
 #profile-form{
