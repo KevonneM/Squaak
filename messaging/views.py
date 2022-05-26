@@ -12,6 +12,7 @@ from messaging.models import ChatRoom, Message, PrivateChatRoom, PrivateMessage
 # Create your views here.
 
 # View for the Messaging page.
+@login_required
 def messaging_page(request):
 
     return render(request, 'messenger.html', {
