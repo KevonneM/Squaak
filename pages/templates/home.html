@@ -7,9 +7,13 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-        
-        <h1 class="great-vibes">enter feed here</h1>
-    
+         <div class="jumbotron">
+            <h1 class="display-4">Welcome to Squaak!</h1>
+            <p class="lead">Squaak is a web application that has video chat, messaging, and a friends system. Users in Squaak have user customization, authentification, and restrictions. Video chat utilizes Agora API along with Agora token builder to to have the video chat rooms automated. The friends interface / flock allowes users to interact with other users, accept, decline, private video chat, private message. Chat rooms utilizes Django Channels and Web Sockets.</p>
+            <hr class="my-4">
+            <p class="lead">
+            </p>
+        </div>
     {% else %}
         
         <div class="jumbotron">
