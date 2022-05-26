@@ -4,27 +4,21 @@
 
 {% block content %}
 <main>
-    <h1>
-        hello friend
-    </h1>
 
-    <section id="form-container">
-        <div>
-            <h1>Welcome to the chat lobby!</h1> 
-        </div>
-    </section>
-    
+<div class="card text-center mx-auto mt-5" style="max-height: 200px; min-width: 400px;">
+    <div class="card-header mb-4" >
+        Welcome to the video chat lobby!
+    </div>
+    <h5 class="card-title">Enter a room name. Characters Only!</h5>
     <form id="form">
-        <div class="form-field">
-            <input onkeydown="return /[a-z]/i.test(event.key)" type="text" name="room" placeholder="Enter a room name. Characters Only!" style="text-transfrom:uppercase;"/>    
+        <div class="form-field mb-3">
+            <input onkeydown="return /[a-z]/i.test(event.key)" type="text" name="room" placeholder="Enter a room name." style="text-transfrom:uppercase;"/>    
         </div>
-
         <div class="form-field">        
             <input type="submit" value="Join stream"/>    
         </div>
     </form>
-
-
+</div>
 </main>
 
 <script type="text/javascript">
