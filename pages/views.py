@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView
-from friend.models import FriendRequest
+from django.views.generic import ListView
 from users.models import CustomUser, Profile
 from users.forms import CustomUserChangeForm, ProfileUpdateForm
 from messaging.models import PrivateMessage
@@ -62,12 +61,3 @@ def message_to_noti(sender, instance, created, **kwargs):
 
         # Actor for notification is the sender.
         notify.send(instance.private_sender, verb='Message Created', msg_sender=msg_sender, recipient=current_user, description=content, action_object=instance)
-
-@receiver(post_save, sender=FriendRequest)
-def request_to_noti(sender, instance, created, **kwargs):
-
-    if created:
-        current_user = CustomUser.objects.get(pk=instance.receiver.pk)
-        msg_sender = instance.sender.username
-
-        notify.send(instance.sender, verb='Friend Request Created', recipient=current_user, action_object=instance)

@@ -76,9 +76,6 @@
                                     <div>
                                     <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
                                   <button class="dropdown-item" type="button">{{ notification.description }}</button>
-
-                                  <h1>New Friend Request from: {{ notification.actor }}</h1>
-
                                   <a href="{% url 'notifications:mark_as_read' notification.slug %}?next={{ request.path }}">Mark As Read.</a>		
                                   </div>
                                   <div class="dropdown-divider"></div>

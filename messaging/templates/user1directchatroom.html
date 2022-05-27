@@ -29,7 +29,7 @@
                     <textarea class="form-control" id="chatLog" readonly>
                     {% for message in chat_messages %}
                         {{ message.timestamp }}
-                        {{ message.user.username }}: {{ message.content }}
+                        {{ message.private_sender.username }}: {{ message.content }}
                     {% endfor %}
                     </textarea>
                 </div>
