@@ -3,6 +3,8 @@ from .views import SignUpView, CustomPasswordChangeView
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 
+from . import views
+
 app_name = 'users'
 
 urlpatterns = [
@@ -20,4 +22,5 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(),name="password_reset_comlete"),
     #password change
     path('password_change/', CustomPasswordChangeView.as_view(),name='change_password'),
+    path('delete_owner/', views.delete_owner, name="delete-owner"),
 ]

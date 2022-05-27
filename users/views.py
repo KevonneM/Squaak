@@ -1,10 +1,14 @@
 from django.http import request
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileUpdateForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
+
+from .models import CustomUser
+
+from notifications.models import Notification
 
 
 
@@ -25,3 +29,14 @@ class SignUpView(CreateView):
 
 class CustomPasswordChangeView(PasswordChangeView):
     success_url = reverse_lazy('pages:home')
+
+def delete_owner(request):
+
+    owner = CustomUser.objects.get(pk=request.user.pk)
+    notifications = Notification.objects.filter(actor_object_id=request.user.pk)
+
+    if owner:
+        owner.delete()
+        notifications.delete()
+
+    return redirect('pages:home')
