@@ -223,5 +223,9 @@ input, select {
 }
 
 #mic-btn{
+    background-color: silver;
+}
+
+#camera-btn {
     background-color: #B048FF;
 }
