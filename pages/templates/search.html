@@ -11,7 +11,7 @@
 
 {% else %}
 
-<div class="card border-info mb-3 mt-3 ml-3" style="display: inline-block; max-width: auto; max-height: auto;">
+<div class="card border-info mb-3 mt-3 ml-3 text-center" style="display: inline-block; max-width: auto; max-height: auto;">
 
 {% endif %}
 
@@ -21,7 +21,7 @@
   <div class="card-body text-info">
 
    {% if result.username == request.user.username %}
-      <h5 class="card-title">Current User</h5>
+      <h5 class="card-title">Status: Current User</h5>
    {% endif %}
 
    {% if result not in request.user.friends.all and result.username != request.user.username %}
@@ -33,16 +33,22 @@
       <p class="card-text">{{ result.profile.bio }}</p>
   </div>
 
-  {% if result not in request.user.friends.all %}
+  {% if result not in request.user.friends.all and result.username != request.user.username %}
   <div class="card-footer bg-transparent border-info">
      <a href="{% url 'friend:profile_view' result.pk %}">
       <button class="btn btn-primary">
          View Profile
       </button>
-   </a>
+      </a>
+
+      <a href="{% url 'friend:send-friend-request' result.pk %}">
+       <button class="btn btn-primary">
+          Send Friend Request
+       </button>
+      </a>
    </div>
    {% else %}
-   <div class="card-footer bg-transparent border-info">
+   <div class="card-footer bg-transparent border-info text-center">
       <a href="{% url 'friend:profile_view' result.pk %}">
        <button class="btn btn-success">
           View Profile
