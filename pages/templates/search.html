@@ -32,9 +32,24 @@
       <h1>Bio:</h1>
       <p class="card-text">{{ result.profile.bio }}</p>
   </div>
+
+  {% if result not in request.user.friends.all %}
   <div class="card-footer bg-transparent border-info">
-     <a href="{% url 'friend:profile_view' result.pk %}">View Profile</a>
+     <a href="{% url 'friend:profile_view' result.pk %}">
+      <button class="btn btn-primary">
+         View Profile
+      </button>
+   </a>
    </div>
+   {% else %}
+   <div class="card-footer bg-transparent border-info">
+      <a href="{% url 'friend:profile_view' result.pk %}">
+       <button class="btn btn-success">
+          View Profile
+       </button>
+    </a>
+    </div>
+    {% endif %}
 </div>
 
 

@@ -70,11 +70,15 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 {% if user.notifications.unread %}
                                 <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path }}">Mark all as Read.</a>
+                                <hr>
                                 {% endif %}
                                 {% for notification in user.notifications.unread|slice:"0:5" %}
                                     <div>
                                     <a href="{% url 'messaging:direct-chat' notification.actor.pk %}">Message from: {{ notification.actor }}</a> 
                                   <button class="dropdown-item" type="button">{{ notification.description }}</button>
+
+                                  <h1>New Friend Request from: {{ notification.actor }}</h1>
+
                                   <a href="{% url 'notifications:mark_as_read' notification.slug %}?next={{ request.path }}">Mark As Read.</a>		
                                   </div>
                                   <div class="dropdown-divider"></div>
