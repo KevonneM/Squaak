@@ -2,69 +2,115 @@
 
 {% block content %}
 
-<div>
-    <h1>Friends</h1>
+<div class="card-deck justify-content-center mt-5">
+
+<div class="card text-black border-success mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Friends List</div>
+    <div class="card-body">
     {% for friend in friends %}
-    <h1>{{friend.username}}
-        <a href="{% url 'friend:profile_view' friend.pk %}">View Profile</a>
-        <a href="{% url 'friend:delete-friend' friend.pk %}">Remove Friend</a>
-    </h1>
+      <h5 class="card-title text-center">{{ friend.username }}</h5>
+      <a href="{% url 'friend:profile_view' friend.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        View Profile
+        </button>
+      </a>
+      <a href="{% url 'friend:delete-friend' friend.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Remove from Friends
+        </button>
+      </a>
+      <hr>
     {% endfor %}
+    </div>
+  </div>
+
+  <div class="card text-black border-warning mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Friend Requests</div>
+    <div class="card-body">
+        {% for request in rec_friend_requests %}
+      <h5 class="card-title text-center">From: {{ request.sender }}</h5>
+      <a href="{% url 'friend:accept-friend-request' request.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Accept Friend Request
+        </button>
+      </a>
+      <a href="{% url 'friend:decline-friend-request' request.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Decline Friend Request
+        </button>
+      </a>
+      <hr>
+      {% endfor %}
+      <div class="card-header text-center">Requests Sent</div>
+    <div class="card-body">
+        {% for sent in sent_friend_requests %}
+      <h5 class="card-title text-center">Send to: {{ sent.receiver }}</h5>
+      <a href="{% url 'friend:cancel-friend-request' sent.receiver.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Cancel Friend Request
+        </button>
+      </a>
+      {% endfor %}
+    
+    </div>
+  </div>
+  </div>
+
+  <div class="card text-black border-info mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Direct Messages</div>
+    <div class="card-body">
+        <div class="card-header text-center">-Initiated-</div>
+        {% for ini in initiated_direct_chats %}
+      <h5 class="card-title text-center">Chatting with: {{ ini.user2 }}</h5>
+      <a href="{% url 'messaging:direct-chat' ini.user2.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Message {{ ini.user2 }}
+        </button>
+      </a>
+      <hr>
+      {% endfor %}
+      <div class="card-header text-center">-Received-</div>
+    <div class="card-body">
+        {% for rec in received_direct_chats %}
+      <h5 class="card-title text-center">Chatting with: {{ rec.user1 }}</h5>
+      <a href="{% url 'messaging:direct-chat' rec.user1.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Message {{ rec.user1 }}
+        </button>
+      </a>
+      {% endfor %}
+    
+    </div>
+  </div>
+  </div>
+
+  <div class="card text-black border-info mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Video Chat Rooms</div>
+    <div class="card-body">
+        <div class="card-header text-center">-Initiated-</div>
+        {% for inivid in initiated_video_chats %}
+      <h5 class="card-title text-center">Video Chatting with: {{ inivid.videouser2 }}</h5>
+      <a href="{% url 'videochat:private-video-chat' inivid.videouser2.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Jump into Videochat Room
+        </button>
+      </a>
+      <hr>
+      {% endfor %}
+      <div class="card-header text-center">-Received-</div>
+    <div class="card-body">
+        {% for recvid in received_video_chats %}
+      <h5 class="card-title text-center">Video Chatting with: {{ recvid.videouser1 }}</h5>
+      <a href="{% url 'videochat:private-video-chat' recvid.videouser1.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Jump into Videochat Room
+        </button>
+      </a>
+      {% endfor %}
+    
+    </div>
+  </div>
+  </div>
+
 </div>
-
-<div>
-    <h1>Friend Requests</h1>
-    {% for request in rec_friend_requests %}
-
-    <h1>From: {{request.sender}}
-        <a href="{% url 'friend:accept-friend-request' request.pk %}">Accept Friend Request</a>
-        <a href="{% url 'friend:decline-friend-request' request.pk %}">Decline Friend Request</a>
-    </h1>
-    {% endfor %}
-</div>
-
-<div>
-    <h1>Requests Sent</h1>
-    {% for sent in sent_friend_requests %}
-    <h1>Sent To: {{sent.receiver}}
-        <a href="{% url 'friend:cancel-friend-request' sent.receiver.pk %}">Cancel Friend Request.</a></h1>
-    {% endfor %}
-</div>
-
-<div>
-    <h1>Initiated Chats:</h1>
-    {% for ini in initiated_direct_chats %}
-    <h1>created by: {{ request.user }}</h1>
-    <h1>chatting with: {{ ini.user2 }}</h1>
-        <a href="{% url 'messaging:direct-chat' ini.user2.pk %}">Message {{ ini.user2 }}</a>
-    {% endfor %}
-</div>
-
-<div>
-    <h1>Received Chats:</h1>
-    {% for rec in received_direct_chats %}
-    <h1>created by: {{ rec.user1 }}</h1>
-    <h1>chatting with: {{ request.user }}</h1>
-        <a href="{% url 'messaging:direct-chat' rec.user1.pk %}">Message {{ rec.user1 }}</a>
-    {% endfor %}
-</div>
-
-<div>
-    <h1>Initiated Video Chats</h1>
-    {% for inivid in initiated_video_chats %}
-    <h1>created by: {{ request.user }}</h1>
-    <h1>chatting with: {{ inivid.videouser2 }}</h1>
-        <a href="{% url 'videochat:private-video-chat' inivid.videouser2.pk %}">Jump in videochat with {{ inivid.videouser2 }}</a>
-    {% endfor %}
-</div>
-
-<div>
-    <h1>Received Video Chats</h1>
-    {% for recvid in received_video_chats %}
-    <h1>created by: {{ recvid.videouser1 }}</h1>
-    <h1>chatting with: {{ request.user }}</h1>
-        <a href="{% url 'videochat:private-video-chat' recvid.videouser1.pk %}">Jump in videochat with {{ recvid.videouser1 }}</a>
-    {% endfor %}
-</div>
-
 {% endblock content %}
