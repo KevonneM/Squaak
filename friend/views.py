@@ -113,7 +113,19 @@ def delete_friend(request,pk):
     user_account = request.user
     friend_account = CustomUser.objects.get(pk=pk)
 
+    existing_messenger_initiated = PrivateChatRoom.objects.filter(user1=request.user, user2=friend_account)
+    existing_messenger_received = PrivateChatRoom.objects.filter(user2=request.user, user1=friend_account)
+
+    existing_videochat_initiated = PrivateVideoChatRoom.objects.filter(videouser1=request.user, videouser2=friend_account)
+    existing_videochat_received = PrivateVideoChatRoom.objects.filter(videouser2=request.user, videouser1=friend_account)
+
     user_account.friends.remove(friend_account)
     friend_account.friends.remove(user_account)
+
+    existing_messenger_initiated.delete()
+    existing_messenger_received.delete()
+
+    existing_videochat_initiated.delete()
+    existing_videochat_received.delete()
 
     return redirect('friend:friends')
