@@ -176,3 +176,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DJANGO_NOTIFICATIONS_CONFIG = {
     'USE_JSONFIELD': True,
 }
+
+# Configure Django App for Heroki.
+import django_heroku
+django_heroku.settings(locals())
