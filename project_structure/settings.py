@@ -142,6 +142,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATICFILES_DIRS = [
+    STATIC_ROOT,
+]
+
 # Where our uploaded files will be located on the file system.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # URL to access images in browser.
