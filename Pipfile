@@ -15,6 +15,7 @@ channels-redis = "*"
 python-decouple = "*"
 django-notifications-hq = "*"
 django-heroku = "*"
+gunicorn = "*"
 
 [dev-packages]
 
