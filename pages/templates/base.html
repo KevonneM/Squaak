@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"  type="text/css" href="{% static 'pages/css/style.css' %}">
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -88,7 +88,7 @@
                 {% live_notify_list list_class="dropdown-menu" %}
 
               <form id="search-bar" class="form-inline" action="{% url 'pages:search' %}" method="get">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="user_name">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for Friends" name="user_name">
                 <button class="btn btn-info" type="submit">Search</button>
             </form>
         
@@ -150,6 +150,13 @@
       background-color: red;
       color: white;
     }
+
+    @font-face {
+      font-family: "great-vibes";
+      src: local('great-vibes');
+      src: url('{% static "fonts/GreatVibes-Regular.ttf" %}');
+    }
+
     </style>
 <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
 {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
