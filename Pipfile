@@ -16,6 +16,7 @@ python-decouple = "*"
 django-notifications-hq = "*"
 django-heroku = "*"
 gunicorn = "*"
+daphne = "*"
 
 [dev-packages]
 
