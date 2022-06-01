@@ -29,6 +29,7 @@ DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://squaak-rtc.herokuapp.com']
 
 # Application definition
 
