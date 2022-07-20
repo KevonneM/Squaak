@@ -6,13 +6,15 @@ from django.http import JsonResponse
 import random
 import time
 
+from decouple import config
+
 from users.models import CustomUser
 from videochat.models import PrivateVideoChatRoom
 # Create your views here.
 
 def getToken(request):
-    appId = 'e393edf6a2064a009f02a0dbd24284c5'
-    appCertificate = 'd8ec4910ca4842f89ae7bdf7d8ef59e1'
+    appId = config('appId')
+    appCertificate = config('appCertificate')
     channelName = request.GET.get('channel')
     uid =  random.randint(1,230)
     expirationTimeInSeconds = 3600 * 24
