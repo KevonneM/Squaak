@@ -17,6 +17,7 @@ django-notifications-hq = "*"
 django-heroku = "*"
 gunicorn = "*"
 daphne = "*"
+django = "*"
 
 [dev-packages]
 
