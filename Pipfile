@@ -18,6 +18,7 @@ django-heroku = "*"
 gunicorn = "*"
 daphne = "*"
 django = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
