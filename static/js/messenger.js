@@ -10,7 +10,7 @@ document.querySelector("#roomInput").onkeyup = function(e) {
     }
 };
 
-// Used to redirect to private_chat_room/room_input.
+// Used to redirect to chat_room/room_input.
 document.querySelector("#roomConnect").onclick = function() {
     let roomName = document.querySelector("#roomInput").value;
     window.location.pathname = "messenger/chat_room/" + roomName + "/";

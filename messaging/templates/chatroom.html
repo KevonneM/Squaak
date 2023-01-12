@@ -21,10 +21,11 @@
     
     <div class="container mt-3 p-5">
         <h2>public-django-channels-chat</h2>
+        <hr>
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="mb-2">
-                    <label for="chatLog">Room: #{{ room.name }}</label>
+                    <label for="chatLog">Room-Name: {{ room.name }}</label>
                     <textarea class="form-control" id="chatLog" readonly></textarea>
                 </div>
                 <div class="input-group">

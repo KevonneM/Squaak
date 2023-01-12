@@ -1,4 +1,4 @@
-console.log("Js check from privateroom.js");
+console.log("Js check from publicchat.js");
 
 // Retrieving room.name from html template tags and passing it to roomName.
 const roomName = JSON.parse(document.getElementById('roomName').textContent);

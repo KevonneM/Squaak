@@ -16,11 +16,12 @@
    
     <div class="container mt-3 p-5">
         <h2>public-django-channels-chat</h2>
+        <hr>
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="mb-2">
-                    <label for="roomInput">Enter a room name to connect to it:</label>
-                    <input type="text" class="form-control" id="roomInput" placeholder="Room name">
+                    <label class="mb-2" for="roomInput">Enter a room name to connect to it:</label>
+                    <input onkeydown="return /[a-z]/i.test(event.key)" type="text" class="form-control" id="roomInput" placeholder="Room-name (Alpha characters only)">
                     <small id="roomInputHelp" class="form-text text-muted">If the room doesn't exist yet, it will be created for you.</small>
                 </div>
                 <button type="button" id="roomConnect" class="btn btn-success">Connect</button>
