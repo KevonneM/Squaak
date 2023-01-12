@@ -1,25 +1,25 @@
 [[source]]
-url = "https://pypi.python.org/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
-django-crispy-forms = "*"
-django-bootstrap4 = "*"
-Pillow = "*"
-django-autoslug = "*"
-channels = "*"
-agora-token-builder = "*"
-channels-redis = "*"
-python-decouple = "*"
-django-notifications-hq = "*"
-django-heroku = "*"
-gunicorn = "*"
-daphne = "*"
-psycopg2 = "*"
 django = "*"
+django-notifications-hq = "*"
+python-decouple = "*"
+channels-redis = "*"
+agora-token-builder = "*"
+channels = "*"
+django-autoslug = "*"
+pillow = "*"
+django-bootstrap4 = "*"
+django-crispy-forms = "*"
+daphne = "*"
+django-redis = "*"
+gunicorn = "*"
+uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"

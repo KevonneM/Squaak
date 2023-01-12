@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
-from decouple import config
+import json
+
+with open('/etc/config.json') as config_file:
+    config = json.load(config_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,14 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.squaak.net','squaak.net' , '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://squaak-rtc.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://www.squaak.net','https://squaak.net', 'http://127.0.0.1']
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # Application definition
 
@@ -90,7 +95,7 @@ CHANNEL_LAYERS = {
     'default':{
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            'hosts': [('localhost', '6379')],
         },
     },
 }
@@ -170,7 +175,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #SMTP Configuration
 
-SENDGRID_API_KEY = config('SENDGRID_API_KEY')
+SENDGRID_API_KEY = config.get('SENDGRID_API_KEY')
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -178,13 +183,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = config.get('DEFAULT_FROM_EMAIL')
 
 # To carry additional data to notification messages.
 DJANGO_NOTIFICATIONS_CONFIG = {
     'USE_JSONFIELD': True,
 }
-
-# Configure Django App for Heroki.
-import django_heroku
-django_heroku.settings(locals())

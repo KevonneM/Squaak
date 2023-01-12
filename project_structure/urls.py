@@ -30,8 +30,4 @@ urlpatterns = [
     path('', include('videochat.urls')),
     path('', include('messaging.urls')),
     re_path('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
-]
-
-# only adds if in debug.
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
