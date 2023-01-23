@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="card-deck justify-content-center mt-5">
 {% for result in object_list %}
 
-</div>
 {% if result in request.user.friends.all and result.username != request.user.username %}
 
-<div class="card border-success mb-3 mt-3 ml-3" style="display: inline-block; max-width: auto; max-height: auto;">
+<div class="card border-success mb-3 mt-3 ml-3 text-center" style="display: inline-block; max-width: 18rem;">
 
 {% else %}
 
-<div class="card border-info mb-3 mt-3 ml-3 text-center" style="display: inline-block; max-width: auto; max-height: auto;">
+<div class="card border-info mb-3 mt-3 ml-3 text-center" style="display: inline-block; max-width: 18rem;">
 
 {% endif %}
 
@@ -30,7 +29,7 @@
       <h5 class="card-title">Status: Friend</h5>
    {% endif %}
       <h1>Bio:</h1>
-      <p class="card-text">{{ result.profile.bio }}</p>
+      <span class="card-text" style="display: inline-block; overflow: hidden; text-overflow: ellipsis;">{{ result.profile.bio }}</span>
   </div>
 
   {% if result not in request.user.friends.all and result.username != request.user.username %}
@@ -58,7 +57,7 @@
     {% endif %}
 </div>
 
-
 {% endfor %}
+</div>
 
 {% endblock content %}
