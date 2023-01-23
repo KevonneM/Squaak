@@ -17,26 +17,31 @@
   </div>
   </div>
 
-  <form id="profile-form"method="post" enctype="multipart/form-data">
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-    {% csrf_token %}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Profile Info</legend>
-      {{ u_form|crispy }}
-      {{ p_form|crispy }}
-    </fieldset>
-    <div class="form-group">
-        <button class="btn btn-info" type="submit">Update</button>
-    </div>
-  </form>
+  <div class="card text-white bg-dark mx-auto mt-4" style="width: 32rem;">
+    <div class="card-body">
+        <h5 class="card-title" style="text-align: center;">Edit Profile</h5>
+        <hr>
+    <form id="profile-form"method="post" enctype="multipart/form-data">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      {% csrf_token %}
+      <fieldset class="form-group">
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+      </fieldset>
+      <div class="form-group" style="display: block; text-align: center;">
+          <button class="btn btn-info" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
 
   <div>
     <a href="{% url 'users:delete-owner' %}">
-      <button type="button" class="btn btn-danger btn-sm btn-block mb-2">
+      <button type="button" class="btn btn-danger btn-sm btn-block mb-2 mt-4">
       Delete Account
       </button>
     </a>
