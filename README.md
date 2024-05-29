@@ -13,7 +13,7 @@ Getting Started
 
   To get started with Squaak, follow these steps:
 
-  1. Clone the repository to your local machine by running git clone https://github.com/your-username/squaak.git.
+  1. Clone the repository to your local machine by running git clone https://github.com/KevonneM/squaak.git.
   2. Install pipenv by running pip install pipenv.
   3. Navigate to the root directory of the project and run pipenv install to create the virtual environment and install the required dependencies.
   4. Create a .env file in the root directory of the project, and add the following environmental variables: SECRET_KEY, SENDGRID_API_KEY, appCertificate, and appID with their respective values. These variables are required for Squaak to work properly.
